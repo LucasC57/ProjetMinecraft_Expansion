@@ -1,5 +1,5 @@
 package Jeu;
-import Exception.FichierInexistantException
+import Exception.FichierInexistantException;
 public class Monde {
     String nom_fichier = null;
     public Monde(String nom_fichier) throws FichierInexistantException {
