@@ -7,11 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Monde {
+
     private String nom_fichier = null;
     //String mondeInco = "MondeIncoherent.csv";
-    private int largeur;
-    private int hauteur;
-    String[][] tab_monde;
+    private int largeur = 20;
+    private int hauteur = 10;
+    private Case[][] tab_monde;
+    private Case point_respawn;
     public Monde(String mondeInco) throws FichierInexistantException, MondeException {
         validerMonde(mondeInco);
         //setNom_fichier(nom_fichier);
@@ -54,16 +56,14 @@ public class Monde {
                 System.out.println(line);
                 compteur++;
                 // Vérification
-                if (cases.length != 20) {
+                if (cases.length != this.largeur) {
                     throw new MondeException();
                 }
-                if (compteur != 10) {
-                    throw new MondeException();
-                }
-                System.out.printf("%d", compteur);
                 //  - si le contenu de chaque case est contenu dans enum {A,T,P...}
                 // On attribue largeur et hauteur :
-
+            }
+            if (compteur != this.hauteur) {
+                throw new MondeException();
             }
         }
         catch ( IOException e){
