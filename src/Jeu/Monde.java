@@ -14,7 +14,7 @@ public class Monde {
     private int hauteur = 10;
     private Case[][] tab_monde;
     private Case point_respawn;
-    public Monde(String mondeInco) throws FichierInexistantException, MondeException {
+    public Monde(String mondeInco) throws FichierInexistantException, MondeException, CoordException {
         validerMonde(mondeInco);
         //setNom_fichier(nom_fichier);
     }
@@ -45,7 +45,7 @@ public class Monde {
     public void setPoint_respawn(Case point_respawn) {
         this.point_respawn = point_respawn;
     }
-    public void validerMonde(String mondeInco) throws MondeException {
+    public void validerMonde(String mondeInco) throws MondeException, CoordException {
         String line = "";
         int compteur_pdr = 0;
         final String delimiter = ";";
@@ -62,11 +62,11 @@ public class Monde {
                     Coord coord_case = new Coord(i, compteur); // x, y
                     Case case_monde = new Case(cases[i], coord_case); // nom_case, coord
                     // Si c'est le point de respawn
-                    if (case_monde.getNomCase.equals("R")) {
+                    if (case_monde.getNomCase().equals("R")) {
                         this.point_respawn = case_monde;
                     }
                     // On remplit le tab_monde
-                    tab_monde[case_monde.getX()][case_monde.getY()] = case_monde;
+                    tab_monde[case_monde.getCoord().getX()][case_monde.getCoord().getY()] = case_monde;
                 }
                 System.out.println(line);
                 compteur++;
@@ -88,7 +88,7 @@ public class Monde {
             for (int i = 0; i < this.largeur; i++) {
                 for (int j = 0; j < this.hauteur; i++) {
                     // On vérifie qu'il y a un seul pdr
-                    if (tab_monde[i][j].getNomCase().equals("R")) {
+                    if (tab_monde[i][j].getContenu() instanceof BlocRespawn) {
                         compteur_pdr++;
                     }
                 }
