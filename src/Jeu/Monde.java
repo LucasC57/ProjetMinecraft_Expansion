@@ -7,13 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Monde {
-
     private String nom_fichier = null;
     //String mondeInco = "MondeIncoherent.csv";
     private int largeur = 20;
     private int hauteur = 10;
     private Case[][] tab_monde;
-    private Case point_respawn;
+    private Coord point_respawn;
     public Monde(String mondeInco) throws FichierInexistantException, MondeException, CoordException {
         validerMonde(mondeInco);
         //setNom_fichier(nom_fichier);
@@ -42,12 +41,11 @@ public class Monde {
             throw new IllegalArgumentException("La hauteur ne peut pas être négative");
         this.hauteur = hauteur;
     }
-    public void setPoint_respawn(Case point_respawn) {
+    public void setPoint_respawn(Coord point_respawn) {
         this.point_respawn = point_respawn;
     }
     public void validerMonde(String mondeInco) throws MondeException, CoordException {
         String line = "";
-        int compteur_pdr = 0;
         final String delimiter = ";";
         try
         {
@@ -63,7 +61,7 @@ public class Monde {
                     Case case_monde = new Case(cases[i], coord_case); // nom_case, coord
                     // Si c'est le point de respawn
                     if (case_monde.getNomCase().equals("R")) {
-                        this.point_respawn = case_monde;
+                        this.point_respawn = case_monde.getCoord();
                     }
                     // On remplit le tab_monde
                     tab_monde[case_monde.getCoord().getX()][case_monde.getCoord().getY()] = case_monde;
@@ -76,25 +74,6 @@ public class Monde {
                 }
                 //  - si le contenu de chaque case est contenu dans enum {A,T,P...}
                 // On attribue largeur et hauteur :
-            }
-            // Parcours du tab_monde pour savoir si une case à un nom incorrect donc une case inexistante
-            for (int i = 0; i < this.largeur; i++) {
-                for (int j = 0; i < this.hauteur; i++) {
-                    if (!tab_monde[i][j].verifierCase()) {
-                        throw new MondeException();
-                    }
-                }
-            }
-            for (int i = 0; i < this.largeur; i++) {
-                for (int j = 0; j < this.hauteur; i++) {
-                    // On vérifie qu'il y a un seul pdr
-                    if (tab_monde[i][j].getContenu() instanceof BlocRespawn) {
-                        compteur_pdr++;
-                    }
-                }
-            }
-            if (compteur_pdr != 1) {
-                throw new MondeException();
             }
             if (compteur != this.hauteur) {
                 throw new MondeException();

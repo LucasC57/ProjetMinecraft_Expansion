@@ -7,6 +7,7 @@ public class Case {
     private boolean presence_pieds = false;
     private Coord position;
     private Bloc contenu;
+    ArrayList<Item> items_au_sol = new ArrayList<Item>();
 
     public Case(Bloc contenu, Coord coordCase) {
         setCoordCase(coordCase);
@@ -28,19 +29,7 @@ public class Case {
         }
         this.position = coordCase;
     }
-    private void setNomCase(String aCase) {
-        if (aCase == null || aCase.trim().isEmpty()) {
-            throw new IllegalArgumentException("La case a un nom incorrect !");
-        }
-        this.nom_case = aCase;
-    }
     public Coord getCoord() {
         return this.position;
-    }
-    public String getNomCase() {
-        return this.nom_case;
-    }
-    public boolean verifierCase() {
-        return false;
     }
 }
