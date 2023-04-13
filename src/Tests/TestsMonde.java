@@ -18,8 +18,8 @@ public class TestsMonde {
     }*/
 
     @Test
-    public void testfichierMalFormate() throws FichierMalFormate, FichierInexistantException {
-        String mondeTest = "src/MondeIncoherent.csv";
+    public void testfichierMalFormate() throws FichierMalFormate, FichierInexistantException, MondeException {
+        String mondeTest = "../Fichiers/MondeIncoherent.csv";
         Monde monde_inco = new Monde(mondeTest);
     }
 }
