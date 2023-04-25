@@ -1,5 +1,8 @@
 package Jeu;
 
+import Jeu.Bloc.Bloc;
+import Jeu.Item.Item;
+
 import java.util.ArrayList;
 
 public class Case {
@@ -14,7 +17,7 @@ public class Case {
         // Pour set le contenu, donc le bloc
         setContenu(contenu);
     }
-    private void setContenu(String aCase) {
+    private void setContenu(Bloc contenu) {
 
     }
     public void setPresence_tete(boolean presence_tete) {
@@ -31,5 +34,9 @@ public class Case {
     }
     public Coord getCoord() {
         return this.position;
+    }
+
+    public Bloc getContenu() {
+        return contenu;
     }
 }
