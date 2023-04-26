@@ -2,6 +2,7 @@ package Jeu;
 
 import Jeu.Bloc.Bloc;
 import Jeu.Item.Item;
+import Exception.*;
 
 import java.util.ArrayList;
 
@@ -12,13 +13,19 @@ public class Case {
     private Bloc contenu;
     ArrayList<Item> items_au_sol = new ArrayList<Item>();
 
-    public Case(Bloc contenu, Coord coordCase) {
+    public Case(Bloc contenu, Coord coordCase) throws BlocInconnuException {
         setCoordCase(coordCase);
         // Pour set le contenu, donc le bloc
         setContenu(contenu);
     }
-    private void setContenu(Bloc contenu) {
-
+    private void setContenu(Bloc contenu) throws BlocInconnuException {
+        if (contenu == null) {
+            throw new BlocInconnuException();
+        }
+        /*
+         * Il va falloir utiliser ici une COR pour tous les blocs différents
+         */
+        this.contenu = contenu;
     }
     public void setPresence_tete(boolean presence_tete) {
         this.presence_tete = presence_tete;

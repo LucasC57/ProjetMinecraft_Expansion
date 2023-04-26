@@ -19,6 +19,6 @@ public class ParserBois extends Parser {
 
     @Override
     public boolean saitParser(String nomBloc) {
-        return nomBloc.trim().equals("B");
+        return nomBloc.contains("B");
     }
 }

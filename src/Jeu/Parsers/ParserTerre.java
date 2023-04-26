@@ -19,6 +19,6 @@ public class ParserTerre extends Parser {
 
     @Override
     public boolean saitParser(String nomBloc) {
-        return nomBloc.trim().equals("P");
+        return nomBloc.contains("T");
     }
 }

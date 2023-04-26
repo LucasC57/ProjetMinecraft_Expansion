@@ -17,6 +17,11 @@ public class ParserAir extends Parser {
     }
     @Override
     public boolean saitParser(String nomBloc) {
-        return nomBloc.trim().equals("A");
+        boolean val = nomBloc.contains("A");
+        if (val) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

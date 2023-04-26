@@ -1,8 +1,10 @@
 package Tests;
 
-import Exception.*;
 import Jeu.Monde;
 import org.junit.jupiter.api.*;
+import Exception.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestsMonde {
     /*+@Test
@@ -19,7 +21,12 @@ public class TestsMonde {
 
     @Test
     public void testfichierMalFormate() throws Exception {
-        String mondeTest = "projet_minecraft/src/Fichiers/Monde.csv";
-        Monde monde_inco = new Monde(mondeTest);
+        String mondeTest = "projet_minecraft/src/Fichiers/MondeIncoherent.csv";
+
+        // Pour vérifier l'assertion :
+        FichierMalFormateException exception = assertThrows(FichierMalFormateException.class, () ->
+           new Monde(mondeTest), "Exception lancee"
+        );
+        assertNotNull(exception);
     }
 }

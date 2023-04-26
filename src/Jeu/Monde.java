@@ -12,7 +12,7 @@ public class Monde {
     private String nom_fichier = null;
     private int largeur = 20;
     private int hauteur = 10;
-    private Case[][] tab_monde;
+    private Case[][] tab_monde = new Case[largeur][hauteur];
     private Coord point_respawn;
     public Monde(String mondeInco) throws Exception {
         validerMonde(mondeInco);
@@ -65,53 +65,31 @@ public class Monde {
 
                     // Pour le bloc d'air :
                     Parser premierParser = null;
-                    premierParser = new ParserAir(premierParser);
-                    blocLink = creationBloc.lireCaractere(cases[i], premierParser);
-
-                    // Pour le 'bloc' Respawn
-                    premierParser = null;
-                    premierParser = new ParserBlocRespawn(premierParser);
-                    blocLink = creationBloc.lireCaractere(cases[i], premierParser);
-
-                    // Pour le bloc de bois :
-                    premierParser = null;
-                    premierParser = new ParserBois(premierParser);
-                    blocLink = creationBloc.lireCaractere(cases[i], premierParser);
-
-                    // Pour le bloc d'herbe :
-                    premierParser = null;
-                    premierParser = new ParserHerbe(premierParser);
-                    blocLink = creationBloc.lireCaractere(cases[i], premierParser);
-
-                    // Pour le bloc de pierre :
-                    premierParser = null;
-                    premierParser = new ParserPierre(premierParser);
-                    blocLink = creationBloc.lireCaractere(cases[i], premierParser);
-
-                    // Pour le bloc de terre :
-                    premierParser = null;
                     premierParser = new ParserTerre(premierParser);
                     blocLink = creationBloc.lireCaractere(cases[i], premierParser);
 
                     Case case_monde = new Case(blocLink, coord_case); // Bloc, coord
+
+                    //if (case_monde.getContenu() instanceof BlocAir)
+                    //    System.out.println("Yes");
+                    //System.out.printf("X : %d Y : %d", case_monde.getCoord().getX(), case_monde.getCoord().getY());
                     // Si c'est le point de respawn
                     if (cases[i].equals("R")) {
                         this.point_respawn = case_monde.getCoord();
                     }
                     // On remplit le tab_monde
-                    this.tab_monde[case_monde.getCoord().getX()][case_monde.getCoord().getY()] = case_monde;
+                    if (tab_monde != null) {
+                        this.tab_monde[case_monde.getCoord().getX()][case_monde.getCoord().getY()] = case_monde;
+                    }
                 }
-                System.out.println(line);
                 compteur++;
                 // Vérification
                 if (cases.length != this.largeur) {
-                    throw new MondeException();
+                    throw new FichierMalFormateException();
                 }
-                //  - si le contenu de chaque case est contenu dans enum {A,T,P...}
-                // On attribue largeur et hauteur :
             }
             if (compteur != this.hauteur) {
-                throw new MondeException();
+                throw new FichierMalFormateException();
             }
         }
         catch (IOException e){

@@ -19,6 +19,6 @@ public class ParserBlocRespawn extends Parser{
 
     @Override
     public boolean saitParser(String nomBloc) {
-        return nomBloc.trim().equals("R");
+        return nomBloc.contains("R");
     }
 }

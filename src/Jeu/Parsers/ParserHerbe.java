@@ -19,6 +19,6 @@ public class ParserHerbe extends Parser {
 
     @Override
     public boolean saitParser(String nomBloc) {
-        return nomBloc.trim().equals("H");
+        return nomBloc.contains("H");
     }
 }

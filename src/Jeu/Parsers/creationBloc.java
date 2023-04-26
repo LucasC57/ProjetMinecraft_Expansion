@@ -1,10 +1,9 @@
 package Jeu.Parsers;
 import Exception.*;
 import Jeu.Bloc.Bloc;
+import Jeu.Bloc.BlocAir;
 
-import java.awt.print.PrinterAbortException;
-
-/**
+/*
     Cette classe à le même but que la classe Fichier dans te le TPCor
  */
 public class creationBloc {
@@ -16,9 +15,9 @@ public class creationBloc {
             try {
                 return parser.traiter(caractere);
             } catch (ParserManquantException e) {
-                System.out.println("Aucun parser n'existe pour le caractere " + caractere);
+                // On ne va rien faire
             }
         }
-        return null;
+        return new BlocAir();
     }
 }
