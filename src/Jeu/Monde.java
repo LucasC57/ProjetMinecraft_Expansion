@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Monde {
     private String nom_fichier = null;
@@ -45,6 +46,15 @@ public class Monde {
     public void setPoint_respawn(Coord point_respawn) {
         this.point_respawn = point_respawn;
     }
+    public int getLargeur() {
+        return largeur;
+    }
+    public int getHauteur() {
+        return hauteur;
+    }
+    public Coord getPoint_respawn() {
+        return point_respawn;
+    }
     public void validerMonde(String mondeInco) throws Exception {
         String line = "";
         final String delimiter = ";";
@@ -58,7 +68,7 @@ public class Monde {
                 String[] cases = line.split(delimiter);
                 // Remplir tab_monde
                 for(int i = 0; i < cases.length; i++) {
-                    Coord coord_case = new Coord(i, compteur); // x, y
+                    Coord coord_case = new Coord(compteur, i); // y, x
 
                     // Travail avec les parsers :
                     Bloc blocLink = null;
@@ -79,7 +89,7 @@ public class Monde {
                     }
                     // On remplit le tab_monde
                     if (tab_monde != null) {
-                        this.tab_monde[case_monde.getCoord().getX()][case_monde.getCoord().getY()] = case_monde;
+                        this.tab_monde[case_monde.getCoord().getY()][case_monde.getCoord().getX()] = case_monde;
                     }
                 }
                 compteur++;

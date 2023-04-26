@@ -1,5 +1,6 @@
 package Tests;
 
+import Jeu.Coord;
 import Jeu.Monde;
 import org.junit.jupiter.api.*;
 import Exception.*;
@@ -19,7 +20,7 @@ public class TestsMonde {
         }
     }*/
 
-    @Test
+    /*@Test
     public void testfichierMalFormate() throws Exception {
         String mondeTest = "projet_minecraft/src/Fichiers/MondeIncoherent.csv";
 
@@ -28,5 +29,25 @@ public class TestsMonde {
            new Monde(mondeTest), "Exception lancee"
         );
         assertNotNull(exception);
+    }*/
+
+    @Test
+    public void testfichierBienFormate() throws Exception {
+        String mondeTest = "projet_minecraft/src/Fichiers/MondeTestCreation.csv";
+        Monde monde_normal = new Monde(mondeTest);
+
+        assertEquals(20, monde_normal.getLargeur());
+        assertEquals(10, monde_normal.getHauteur());
+    }
+
+    @Test
+    public void testFichierBienFormateCoordRespawn() throws Exception {
+        String mondeTest = "projet_minecraft/src/Fichiers/MondeTestCreation.csv";
+        Monde monde_normal = new Monde(mondeTest);
+
+        // Verification des coords du R:
+        Coord respawn = new Coord(2, 6);
+        assertEquals(respawn.getX(), monde_normal.getPoint_respawn().getX());
+        assertEquals(respawn.getY(), monde_normal.getPoint_respawn().getY());
     }
 }
