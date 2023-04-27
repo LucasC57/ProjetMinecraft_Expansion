@@ -47,7 +47,6 @@ public class TestsMonde {
 
         // Verification des coords du R:
         Coord respawn = new Coord(2, 6);
-        assertEquals(respawn.getX(), monde_normal.getPoint_respawn().getX());
-        assertEquals(respawn.getY(), monde_normal.getPoint_respawn().getY());
+        assertEquals(respawn, monde_normal.getPoint_respawn());
     }
 }
