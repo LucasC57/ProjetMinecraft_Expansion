@@ -5,6 +5,7 @@ import Jeu.Item.Item;
 import Exception.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Case {
     private boolean presence_tete = false;
@@ -45,5 +46,12 @@ public class Case {
 
     public Bloc getContenu() {
         return contenu;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Case aCase = (Case) o;
+        return Objects.equals(position, aCase.position);
     }
 }

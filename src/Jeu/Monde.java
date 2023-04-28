@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Monde {
     private String nom_fichier = null;
@@ -105,5 +106,22 @@ public class Monde {
         catch (IOException e){
             e.printStackTrace();
         }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Monde monde = (Monde) o;
+        return Objects.equals(nom_fichier, monde.nom_fichier);
+    }
+    @Override
+    public String toString() {
+        return "Monde{" +
+                "nom_fichier='" + nom_fichier + '\'' +
+                ", largeur=" + largeur +
+                ", hauteur=" + hauteur +
+                ", tab_monde=" + Arrays.toString(tab_monde) +
+                ", point_respawn=" + point_respawn +
+                '}';
     }
 }

@@ -3,6 +3,7 @@ package Jeu;
 import Jeu.Item.Item;
 import Exception.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Inventory {
     // Champs :
@@ -35,5 +36,18 @@ public class Inventory {
             throw new InventoryException();
         }
         this.listItems.remove(i);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Inventory inventory = (Inventory) o;
+        return Objects.equals(listItems, inventory.listItems);
+    }
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "listItems=" + listItems +
+                '}';
     }
 }
