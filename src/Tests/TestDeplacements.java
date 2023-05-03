@@ -2,6 +2,7 @@ package Tests;
 
 import Exception.*;
 import Jeu.*;
+import Jeu.Bloc.*;
 import Jeu.Item.Item;
 import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -110,8 +111,28 @@ public class TestDeplacements {
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());
         Throwable testPresenceExcOBS = assertThrows(DeplacementException.class, () -> {
             Deplacement dep_obstacle = new Deplacement(steve, "Droite");
-            System.out.printf("%d %d", dep_obstacle.getJoueur().getCoordonnees_joueur().getX(), dep_obstacle.getJoueur().getCoordonnees_joueur().getY());
         });
         assertEquals(DeplacementException.class, testPresenceExcOBS.getClass());
+        // Steve en 3,4
+        resp = new Coord(3, 4);
+        steve.setCoordonnees_joueur(resp);
+        Throwable testPresenceExcOBSPieds = assertThrows(DeplacementException.class, () -> {
+            Deplacement dep_obstacle = new Deplacement(steve, "Droite");
+        });
+        assertEquals(DeplacementException.class, testPresenceExcOBSPieds.getClass());
+        // Steve en 3,13
+        resp = new Coord(3, 13);
+        steve.setCoordonnees_joueur(resp);
+        Throwable testPresenceExcOBSPieds2 = assertThrows(DeplacementException.class, () -> {
+            Deplacement dep_obstacle = new Deplacement(steve, "Gauche");
+        });
+        assertEquals(DeplacementException.class, testPresenceExcOBSPieds2.getClass());
+        // Grotte en 6,8
+        resp = new Coord(6, 8);
+        steve.setCoordonnees_joueur(resp);
+        Throwable testPresenceExcOBShaut = assertThrows(DeplacementException.class, () -> {
+            Deplacement dep_obstacle = new Deplacement(steve, "Haut");
+        });
+        assertEquals(DeplacementException.class, testPresenceExcOBShaut.getClass());
     }
 }
