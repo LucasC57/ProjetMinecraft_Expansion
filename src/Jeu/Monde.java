@@ -1,6 +1,6 @@
 package Jeu;
 import Exception.*;
-import Jeu.Bloc.Bloc;
+import Jeu.Bloc.*;
 import Jeu.Parsers.*;
 
 import java.io.BufferedReader;
@@ -78,27 +78,33 @@ public class Monde {
                 // Remplir tab_monde
                 for(int i = 0; i < cases.length; i++) {
                     Coord coord_case = new Coord(compteur, i); // y, x
-
+                    Bloc bloc_create = null;
                     switch(cases[i]) {
-                        case "A": {
+                        case "A", "R": {
+                            bloc_create = new BlocAir();
                             break;
                         }
                         case "B": {
+                            bloc_create = new BlocBois();
                             break;
                         }
                         case "H": {
+                            bloc_create = new BlocHerbe();
                             break;
                         }
                         case "P": {
+                            bloc_create = new BlocPierre();
                             break;
                         }
                         case "T": {
+                            bloc_create = new BlocTerre();
                             break;
                         }
+                        default: {
+                            throw new BlocInconnuException();
+                        }
                     }
-
-                    Case case_monde = new Case(blocLink, coord_case); // Bloc, coord
-
+                    Case case_monde = new Case(bloc_create, coord_case); // Bloc, coord
                     if (cases[i].equals("R")) {
                         this.point_respawn = case_monde.getCoord();
                     }
