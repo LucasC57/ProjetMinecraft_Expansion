@@ -67,45 +67,43 @@ public class Deplacement {
         this.getJoueur().setCoordonnees_joueur(nouvelleCoordonnees);
     }
     public void allerHautGauche() throws CoordException, PlayerArgumentException, DeplacementException {
-        this.allerHaut();
-        this.allerGauche();
+        Coord nouvelleCoordonnees = new Coord(this.getJoueur().getCoordonnees_joueur().getX()-1, this.getJoueur().getCoordonnees_joueur().getY()-1);
+        this.getJoueur().setCoordonnees_joueur(nouvelleCoordonnees);
     }
     public void allerHautDroite() throws CoordException, PlayerArgumentException, DeplacementException {
-        this.allerHaut();
-        this.allerDroite();
+        Coord nouvelleCoordonnees = new Coord(this.getJoueur().getCoordonnees_joueur().getX()-1, this.getJoueur().getCoordonnees_joueur().getY()+1);
+        this.getJoueur().setCoordonnees_joueur(nouvelleCoordonnees);
     }
     public void allerBasGauche() throws CoordException, PlayerArgumentException, DeplacementException {
-        this.allerBas();
-        this.allerGauche();
+        Coord nouvelleCoordonnees = new Coord(this.getJoueur().getCoordonnees_joueur().getX()+1, this.getJoueur().getCoordonnees_joueur().getY()-1);
+        this.getJoueur().setCoordonnees_joueur(nouvelleCoordonnees);
     }
     public void allerBasDroite() throws CoordException, PlayerArgumentException, DeplacementException {
-        this.allerBas();
-        this.allerDroite();
+        Coord nouvelleCoordonnees = new Coord(this.getJoueur().getCoordonnees_joueur().getX()+1, this.getJoueur().getCoordonnees_joueur().getY()+1);
+        this.getJoueur().setCoordonnees_joueur(nouvelleCoordonnees);
     }
     public void validerDirection() throws CoordException, PlayerArgumentException, DeplacementException {
         // Pour une seule direction :
         if (getDirection().matches("^(Haut|Bas)$")) {
             if (getDirection2() != null) {
-                if (getDirection2().equals("Gauche")) {
-                    this.allerGauche();
+                if (getDirection().equals("Haut")) {
                     // Bas :
-                    if (getDirection().equals("Haut")) {
-                        this.allerHaut();
+                    if (getDirection2().equals("Gauche")) {
+                       this.allerHautGauche();
                     }
                     // Haut :
-                    if (getDirection().equals("Bas")) {
-                        this.allerBas();
+                    if (getDirection2().equals("Droite")) {
+                        this.allerHautDroite();
                     }
                 }
-                if (getDirection2().equals("Droite")) {
-                    this.allerDroite();
+                if (getDirection2().equals("Bas")) {
                     // Bas :
-                    if (getDirection().equals("Haut")) {
-                        this.allerHaut();
+                    if (getDirection().equals("Gauche")) {
+                        this.allerBasGauche();
                     }
                     // Haut :
-                    if (getDirection().equals("Bas")) {
-                        this.allerBas();
+                    if (getDirection().equals("Droite")) {
+                        this.allerBasDroite();
                     }
                 }
             } else {
