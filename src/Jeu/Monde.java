@@ -56,7 +56,15 @@ public class Monde {
     public Coord getPoint_respawn() {
         return point_respawn;
     }
+    public Case[][] getTab_monde() {
+        return tab_monde;
+    }
+    public void setTab_monde(Case[][] tab_monde) {
+        this.tab_monde = tab_monde;
+    }
     public void validerMonde(String mondeInco) throws Exception {
+        // Tab monde :
+        Case[][] notreTabMonde = new Case[largeur][hauteur];
         String line = "";
         final String delimiter = ";";
         try
@@ -71,26 +79,32 @@ public class Monde {
                 for(int i = 0; i < cases.length; i++) {
                     Coord coord_case = new Coord(compteur, i); // y, x
 
-                    // Travail avec les parsers :
-                    Bloc blocLink = null;
-
-                    // Pour le bloc d'air :
-                    Parser premierParser = null;
-                    premierParser = new ParserTerre(premierParser);
-                    blocLink = creationBloc.lireCaractere(cases[i], premierParser);
+                    switch(cases[i]) {
+                        case "A": {
+                            break;
+                        }
+                        case "B": {
+                            break;
+                        }
+                        case "H": {
+                            break;
+                        }
+                        case "P": {
+                            break;
+                        }
+                        case "T": {
+                            break;
+                        }
+                    }
 
                     Case case_monde = new Case(blocLink, coord_case); // Bloc, coord
 
-                    //if (case_monde.getContenu() instanceof BlocAir)
-                    //    System.out.println("Yes");
-                    //System.out.printf("X : %d Y : %d", case_monde.getCoord().getX(), case_monde.getCoord().getY());
-                    // Si c'est le point de respawn
                     if (cases[i].equals("R")) {
                         this.point_respawn = case_monde.getCoord();
                     }
                     // On remplit le tab_monde
                     if (tab_monde != null) {
-                        this.tab_monde[case_monde.getCoord().getY()][case_monde.getCoord().getX()] = case_monde;
+                        notreTabMonde[case_monde.getCoord().getY()][case_monde.getCoord().getX()] = case_monde;
                     }
                 }
                 compteur++;
@@ -106,6 +120,7 @@ public class Monde {
         catch (IOException e){
             e.printStackTrace();
         }
+        setTab_monde(notreTabMonde);
     }
     @Override
     public boolean equals(Object o) {
