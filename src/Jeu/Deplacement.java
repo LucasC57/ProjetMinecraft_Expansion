@@ -122,7 +122,7 @@ public class Deplacement {
                     this.allerBas();
                 }
             }
-        } else if (getDirection().matches("^(Gauche|Bas)$")) {
+        } else if (getDirection().matches("^(Gauche|Droite)$")) {
             // Une seule direction :
             if (getDirection().equals("Gauche")) {
                 this.allerGauche();

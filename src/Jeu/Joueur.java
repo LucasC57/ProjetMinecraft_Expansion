@@ -77,7 +77,11 @@ public class Joueur {
         }
         this.coordonnees_joueur = coordonnees_joueur;
         Case[][] test = this.getMonde().getTab_monde();
-        test[getCoordonnees_joueur().getY()][getCoordonnees_joueur().getX()].setPresence_tete(true);
+        if (test[getCoordonnees_joueur().getY()][getCoordonnees_joueur().getX()].getContenu().isFluidite()) {
+            test[getCoordonnees_joueur().getY()][getCoordonnees_joueur().getX()].setPresence_pieds(true);
+        } else {
+            throw new DeplacementException();
+        }
         if (test[getCoordonnees_joueur().getY()][getCoordonnees_joueur().getX()-1].getContenu().isFluidite()) {
             test[getCoordonnees_joueur().getY()][getCoordonnees_joueur().getX()-1].setPresence_tete(true);
         } else {

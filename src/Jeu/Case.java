@@ -12,6 +12,7 @@ public class Case {
     private boolean presence_pieds = false;
     private Coord position;
     private Bloc contenu;
+    private String test = "T";
     ArrayList<Item> items_au_sol = new ArrayList<Item>();
 
     public Case(Bloc contenu, Coord coordCase) throws BlocInconnuException {
@@ -27,6 +28,9 @@ public class Case {
          * Il va falloir utiliser ici une COR pour tous les blocs différents
          */
         this.contenu = contenu;
+    }
+    public String getTest() {
+        return test;
     }
     public void setPresence_tete(boolean presence_tete) {
         this.presence_tete = presence_tete;

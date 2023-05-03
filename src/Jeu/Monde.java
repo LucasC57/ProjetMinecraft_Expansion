@@ -79,28 +79,23 @@ public class Monde {
                 for(int i = 0; i < cases.length; i++) {
                     Coord coord_case = new Coord(compteur, i); // y, x
                     Bloc bloc_create = null;
-                    switch(cases[i]) {
-                        case "A", "R": {
+                    switch (cases[i]) {
+                        case "A", "R" -> {
                             bloc_create = new BlocAir();
-                            break;
                         }
-                        case "B": {
+                        case "B" -> {
                             bloc_create = new BlocBois();
-                            break;
                         }
-                        case "H": {
+                        case "H" -> {
                             bloc_create = new BlocHerbe();
-                            break;
                         }
-                        case "P": {
+                        case "P" -> {
                             bloc_create = new BlocPierre();
-                            break;
                         }
-                        case "T": {
+                        case "T" -> {
                             bloc_create = new BlocTerre();
-                            break;
                         }
-                        default: {
+                        default -> {
                             throw new BlocInconnuException();
                         }
                     }
