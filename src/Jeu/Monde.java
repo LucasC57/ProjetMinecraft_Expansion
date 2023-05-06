@@ -99,7 +99,7 @@ public class Monde {
                             throw new BlocInconnuException();
                         }
                     }
-                    Case case_monde = new Case(bloc_create, coord_case); // Bloc, coord
+                    Case case_monde = new Case(bloc_create, coord_case, this); // Bloc, coord
                     if (cases[i].equals("R")) {
                         this.point_respawn = case_monde.getCoord();
                     }

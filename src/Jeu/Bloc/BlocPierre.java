@@ -5,4 +5,9 @@ public class BlocPierre implements Bloc {
     public boolean isFluidite() {
         return fluidite;
     }
+
+    @Override
+    public void setFluidite(boolean fluidite) {
+        this.fluidite = fluidite;
+    }
 }

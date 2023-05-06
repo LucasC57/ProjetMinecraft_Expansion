@@ -8,8 +8,8 @@ import Exception.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestsMonde {
-    /*+@Test
-    public void testfichierInexistant() throws FichierInexistantException {
+    @Test
+    public void testfichierInexistant() throws Exception {
         // On test quand le fichier donné est inexistant :
         Monde le_monde = new Monde("test.txt");
         // Si le fichier est vide :
@@ -18,9 +18,9 @@ public class TestsMonde {
         } catch (FichierInexistantException e) {
             System.out.println("Le fichier n'existe pas");
         }
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void testfichierMalFormate() throws Exception {
         String mondeTest = "projet_minecraft/src/Fichiers/MondeIncoherent.csv";
 
@@ -29,7 +29,7 @@ public class TestsMonde {
            new Monde(mondeTest), "Exception lancee"
         );
         assertNotNull(exception);
-    }*/
+    }
 
     @Test
     public void testfichierBienFormate() throws Exception {

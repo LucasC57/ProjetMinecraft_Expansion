@@ -23,7 +23,7 @@ public class TestsSteve {
         String mondeTest = "projet_minecraft/src/Fichiers/MondeTestCreation.csv";
         Monde monde_normal = new Monde(mondeTest);
 
-        ArrayList<Objets> inventaire_steve = null;
+        ArrayList<Objets> inventaire_steve = new ArrayList<Objets>();
         Inventory inventaire = new Inventory(inventaire_steve);
         Coord co_steve = new Coord(2, 6);
 
@@ -32,7 +32,7 @@ public class TestsSteve {
 
         // Test sur steve :
         assertEquals("Steve", Steve.getNom());
-        assertNull(Steve.getInventaire().getListItems());
+        assertTrue(Steve.getInventaire().getListItems().isEmpty());
         assertNull(Steve.getMain());
         assertEquals(monde_normal.getPoint_respawn(), Steve.getCoordonnees_joueur());
     }

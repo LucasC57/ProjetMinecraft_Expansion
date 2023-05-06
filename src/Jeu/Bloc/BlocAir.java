@@ -8,5 +8,8 @@ public class BlocAir implements Bloc {
     public boolean isFluidite() {
         return fluidite;
     }
+    public void setFluidite(boolean fluidite) {
+        this.fluidite = fluidite;
+    }
 }
 
