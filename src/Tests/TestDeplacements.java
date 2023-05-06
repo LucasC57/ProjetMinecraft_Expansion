@@ -105,7 +105,7 @@ public class TestDeplacements {
         Monde monde_normal = new Monde(mondeTest);
 
         Coord resp = new Coord(2, 6);
-        ArrayList<Item> inventaire_steve = null;
+        ArrayList<Objets> inventaire_steve = null;
         Inventory inventaire = new Inventory(inventaire_steve);
         Joueur steve = new Joueur("Steve", inventaire, null, resp, monde_normal);
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());

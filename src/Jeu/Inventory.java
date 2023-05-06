@@ -7,24 +7,24 @@ import java.util.Objects;
 
 public class Inventory {
     // Champs :
-    private ArrayList<Item> listItems = new ArrayList<Item>();
+    private ArrayList<Objets> listItems = new ArrayList<Objets>();
     // Constructeur :
-    public Inventory(ArrayList<Item> listItems) {
+    public Inventory(ArrayList<Objets> listItems) {
         setListItems(listItems);
     }
-    public void setListItems(ArrayList<Item> listItems) {
+    public void setListItems(ArrayList<Objets> listItems) {
         // On accepte un inventaire vide
         this.listItems = listItems;
     }
-    public ArrayList<Item> getListItems() {
+    public ArrayList<Objets> getListItems() {
         return listItems;
     }
     // Ajouter un item dans l'inventaire :
-    public void addInventory(Item item) {
-        this.listItems.add(item);
+    public void addInventory(Objets obj) {
+        this.listItems.add(obj);
     }
     // Retourne l'item indexé par i
-    public Item get(int i) throws InventoryException {
+    public Objets get(int i) throws InventoryException {
         if (this.getListItems() == null) {
             throw new InventoryException();
         }

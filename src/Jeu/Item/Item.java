@@ -1,4 +1,6 @@
 package Jeu.Item;
 
-public interface Item {
+import Jeu.Objets;
+
+public interface Item extends Objets {
 }
