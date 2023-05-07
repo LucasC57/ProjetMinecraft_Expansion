@@ -1,5 +1,9 @@
 package Jeu;
 import Exception.*;
+import Jeu.Bloc.Bloc;
+import Jeu.Bloc.BlocAir;
+
+import java.util.ArrayList;
 
 public class Ramassage {
     // Champs : 
@@ -7,7 +11,7 @@ public class Ramassage {
     private Coord coord_case;
     
     // Constructeurs :
-    public Ramassage(Joueur joueur_ramassage, Coord coord_case) throws PlayerArgumentException, ListObjetsInexistantException, CoordException, CaseNonVoisineException {
+    public Ramassage(Joueur joueur_ramassage, Coord coord_case) throws PlayerArgumentException, ListObjetsInexistantException, CoordException, CaseNonVoisineException, BlocNonFluideException, BlocFluideException, ObjetInexistantException {
         setJoueur_Ramassage(joueur_ramassage);
         setCoord_case(coord_case);
         ramasserItems();
@@ -27,7 +31,7 @@ public class Ramassage {
     public void setCoord_case(Coord coord_case) {
         this.coord_case = coord_case;
     }
-    public void ramasserItems() throws ListObjetsInexistantException, CoordException, CaseNonVoisineException {
+    public void ramasserItems() throws ListObjetsInexistantException, CoordException, CaseNonVoisineException, BlocNonFluideException, BlocFluideException, ObjetInexistantException {
         // On va récupérer le tab_monde
         boolean voisin = false;
         Joueur joueur_concerne = this.getJoueur_ramassage();
@@ -62,8 +66,15 @@ public class Ramassage {
                     Objets obj_case = liste_cases[coo_case.getY()][coo_case.getX()].getItems_au_sol().get(i);
                     // On ajoute dans son inventaire
                     joueur_concerne.getInventaire().addInventory(obj_case);
-                    // On n'oublie pas de vider la case
-                    liste_cases[coo_case.getY()][coo_case.getX()].removeObjets(i);
+                }
+                // On n'oublie pas de supprimer tous les objets qui se trouve dans la case :
+                ArrayList<Objets> listm = liste_cases[coo_case.getY()][coo_case.getX()].getItems_au_sol();
+                int nb_objets_a_supprimer = listm.size(); // nombre d'objets à supprimer
+                int objets_supprimes = 0; // nombre d'objets déjà supprimés
+                while (objets_supprimes < nb_objets_a_supprimer && !listm.isEmpty()) {
+                    Objets obj_case = listm.get(0);
+                    liste_cases[coo_case.getY()][coo_case.getX()].removeObjets(0);
+                    objets_supprimes++;
                 }
             } else {
                 throw new CaseNonVoisineException();
