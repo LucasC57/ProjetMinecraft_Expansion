@@ -50,5 +50,27 @@ public class TestsRamassage {
             list_case_monde[7][1].addItemsAuSol(planche);
         });
         assertEquals(BlocFluideException.class, testPresencePlanche.getClass());
+        assertEquals(list_case_monde[7][1].getTaille(), 0);
+        // Planches en 3,7
+        Throwable testPresencePlancheHerbe = assertThrows(BlocNonFluideException.class, () -> {
+            list_case_monde[7][3].addItemsAuSol(planche);
+        });
+        assertEquals(BlocNonFluideException.class, testPresencePlancheHerbe.getClass());
+        assertEquals(list_case_monde[7][3].getTaille(), 0);
+    }
+
+    @Test
+    public void testRamassageAvecSteve() throws Exception {
+        Monde monde_create = new Monde(monde_test);
+        Joueur steve = new Joueur(monde_create);
+        Coord coo_valide = new Coord(2, 6);
+        assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
+        assertEquals(steve.getCoordonnees_joueur(), coo_valide);
+
+        // Inventaire vide
+        ArrayList<Objets> list_items_inv = new ArrayList<Objets>();
+        Inventory inventaire_steve = new Inventory(list_items_inv);
+        Coord case_ramassage = new Coord(2, 7);
+        Ramassage ramasser_Steve = new Ramassage(steve, case_ramassage);
     }
 }
