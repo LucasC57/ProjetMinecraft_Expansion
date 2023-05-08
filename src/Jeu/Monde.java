@@ -1,7 +1,6 @@
 package Jeu;
 import Exception.*;
 import Jeu.Bloc.*;
-import Jeu.Parsers.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -94,6 +93,9 @@ public class Monde {
                         }
                         case "T" -> {
                             bloc_create = new BlocTerre();
+                        }
+                        case "L" -> {
+                            bloc_create = new BlocLierre();
                         }
                         default -> {
                             throw new BlocInconnuException();
