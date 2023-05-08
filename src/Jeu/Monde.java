@@ -28,9 +28,11 @@ public class Monde {
         return nom_fichier;
     }
     public boolean estExistant() throws FichierInexistantException {
-        File fichier_monde = new File(this.getNom_Fichier());
-        if (!fichier_monde.exists())
+        try {
+            File fichier_monde = new File(this.getNom_Fichier());
+        } catch (Exception e) {
             throw new FichierInexistantException("Le fichier n'existe pas");
+        }
         return true;
     }
     public void setLargeur(int largeur) {

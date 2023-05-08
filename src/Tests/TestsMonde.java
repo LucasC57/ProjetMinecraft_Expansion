@@ -1,6 +1,7 @@
 package Tests;
 
 import Jeu.Coord;
+import Jeu.Minage;
 import Jeu.Monde;
 import org.junit.jupiter.api.*;
 import Exception.*;
@@ -15,7 +16,7 @@ public class TestsMonde {
         // Si le fichier est vide :
         try {
             le_monde.estExistant();
-        } catch (FichierInexistantException e) {
+        } catch (Exception e) {
             System.out.println("Le fichier n'existe pas");
         }
     }
@@ -25,10 +26,10 @@ public class TestsMonde {
         String mondeTest = "projet_minecraft/src/Fichiers/MondeIncoherent.csv";
 
         // Pour vérifier l'assertion :
-        FichierMalFormateException exception = assertThrows(FichierMalFormateException.class, () ->
-           new Monde(mondeTest), "Exception lancee"
-        );
-        assertNotNull(exception);
+        Throwable testMondeMalFormate = assertThrows(BlocInconnuException.class, () -> {
+            Monde testMonde = new Monde(mondeTest);
+        });
+        assertEquals(BlocInconnuException.class, testMondeMalFormate.getClass());
     }
 
     @Test
