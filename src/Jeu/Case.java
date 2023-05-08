@@ -21,7 +21,7 @@ public class Case {
         setContenu(contenu);
         setMonde(monde);
     }
-    private void setContenu(Bloc contenu) throws BlocInconnuException {
+    public void setContenu(Bloc contenu) throws BlocInconnuException {
         if (contenu == null) {
             throw new BlocInconnuException();
         }
@@ -104,6 +104,7 @@ public class Case {
         }
         return this.items_au_sol.size();
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
