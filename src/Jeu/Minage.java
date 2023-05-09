@@ -5,6 +5,8 @@ import Jeu.Bloc.BlocBois;
 import Jeu.Experts.Expert;
 import Exception.*;
 
+import java.util.Objects;
+
 public class Minage {
 
     // Champs
@@ -87,5 +89,19 @@ public class Minage {
         } else {
             throw new CORVideException();
         }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Minage minage = (Minage) o;
+        return Objects.equals(joueur_Miner, minage.joueur_Miner) && Objects.equals(case_concerne, minage.case_concerne);
+    }
+    @Override
+    public String toString() {
+        return "Minage{" +
+                "joueur_Miner=" + joueur_Miner +
+                ", case_concerne=" + case_concerne +
+                '}';
     }
 }

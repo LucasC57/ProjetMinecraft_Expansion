@@ -4,6 +4,7 @@ import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Ramassage {
     // Champs : 
@@ -81,5 +82,19 @@ public class Ramassage {
             }
         }
     
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ramassage ramassage = (Ramassage) o;
+        return Objects.equals(joueur_ramassage, ramassage.joueur_ramassage) && Objects.equals(coord_case, ramassage.coord_case);
+    }
+    @Override
+    public String toString() {
+        return "Ramassage{" +
+                "joueur_ramassage=" + joueur_ramassage +
+                ", coord_case=" + coord_case +
+                '}';
     }
 }

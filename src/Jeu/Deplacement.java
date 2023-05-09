@@ -1,6 +1,8 @@
 package Jeu;
 import Exception.*;
 
+import java.util.Objects;
+
 public class Deplacement {
     // Champs
     private String direction;
@@ -135,5 +137,20 @@ public class Deplacement {
                 this.allerBas();
             }
         }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Deplacement that = (Deplacement) o;
+        return Objects.equals(direction, that.direction) && Objects.equals(joueur, that.joueur);
+    }
+    @Override
+    public String toString() {
+        return "Deplacement{" +
+                "direction='" + direction + '\'' +
+                ", direction2='" + direction2 + '\'' +
+                ", joueur=" + joueur +
+                '}';
     }
 }

@@ -3,6 +3,8 @@ package Jeu;
 import Jeu.Bloc.BlocAir;
 import Jeu.Experts.ExpertCraft;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import Exception.*;
 
 public class Fabrication {
@@ -62,5 +64,19 @@ public class Fabrication {
         } else {
             throw new CORVideException();
         }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fabrication that = (Fabrication) o;
+        return Objects.equals(joueur_Craft, that.joueur_Craft) && Objects.equals(recette, that.recette);
+    }
+    @Override
+    public String toString() {
+        return "Fabrication{" +
+                "joueur_Craft=" + joueur_Craft +
+                ", recette=" + recette +
+                '}';
     }
 }
