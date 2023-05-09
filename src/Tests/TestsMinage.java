@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestsMinage {
 
     private String monde_test = "projet_minecraft/src/Fichiers/MondeTestMine.csv";
-    /*@Test
+    @Test
     public void testMinageImpossible() throws Exception {
         Monde monde_create = new Monde(monde_test);
 
@@ -89,7 +89,7 @@ public class TestsMinage {
         miner_case.minerBloc(expertPremier);
         assertEquals(tab_mondeMine[case_pierre.getY()][case_pierre.getX()].getContenu().getClass(), BlocAir.class);
         assertEquals(tab_mondeMine[case_pierre.getY()][case_pierre.getX()].getTaille(), 0);
-    }*/
+    }
     @Test
     public void testMinageAvecPioche() throws Exception {
         Monde monde_create = new Monde(monde_test);

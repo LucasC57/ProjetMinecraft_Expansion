@@ -2,16 +2,13 @@ package Tests;
 
 import Exception.*;
 import Jeu.*;
-import Jeu.Bloc.*;
-import Jeu.Item.Item;
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestDeplacements {
+public class TestsDeplacements {
 
     private String mondeTest = "projet_minecraft/src/Fichiers/MondeTestDeplacement.csv";
     @Test
