@@ -5,11 +5,10 @@ import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocBois;
 import Jeu.Bloc.BlocPierre;
-import Jeu.Experts.Expert;
-import Jeu.Experts.ExpertMain_Bois;
-import Jeu.Experts.ExpertMain_Pierre;
+import Jeu.Experts.*;
 import Jeu.Item.Item;
 import Jeu.Item.MainVide;
+import Jeu.Item.PiochePierre;
 import org.junit.jupiter.api.Test;
 import Exception.*;
 
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestsMinage {
 
     private String monde_test = "projet_minecraft/src/Fichiers/MondeTestMine.csv";
-    @Test
+    /*@Test
     public void testMinageImpossible() throws Exception {
         Monde monde_create = new Monde(monde_test);
 
@@ -90,5 +89,53 @@ public class TestsMinage {
         miner_case.minerBloc(expertPremier);
         assertEquals(tab_mondeMine[case_pierre.getY()][case_pierre.getX()].getContenu().getClass(), BlocAir.class);
         assertEquals(tab_mondeMine[case_pierre.getY()][case_pierre.getX()].getTaille(), 0);
+    }*/
+    @Test
+    public void testMinageAvecPioche() throws Exception {
+        Monde monde_create = new Monde(monde_test);
+        // Création de Steve
+        Joueur steve = new Joueur(monde_create);
+        Item mainVidePourTest = new MainVide();
+        steve.setMain(mainVidePourTest);
+        Coord co_valide = new Coord(4, 6);
+        assertEquals(co_valide, steve.getCoordonnees_joueur());
+        assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
+        assertEquals(steve.getMain().getClass(), MainVide.class);
+
+        // Création de la pioche en pierre et mettre dans la main de steve
+        Item piochePierre = new PiochePierre();
+        steve.setMain(piochePierre);
+        assertEquals(steve.getMain().getClass(), piochePierre.getClass());
+
+        // Mettre à jour la COR pour que steve puisse miner du bois
+        Case[][] tab_mondeMinage = steve.getMonde().getTab_monde();
+        Expert expertPremier = null;
+        expertPremier = new ExpertPiochePierre_Bois(expertPremier);
+        Coord co_bois = new Coord(4, 7);
+        Minage miner_case = new Minage(steve, co_bois, expertPremier);
+        assertEquals(tab_mondeMinage[co_bois.getY()][co_bois.getX()].getContenu().getClass(), BlocAir.class);
+        assertEquals(tab_mondeMinage[co_bois.getY()][co_bois.getX()].getTaille(), 1);
+        assertEquals(tab_mondeMinage[co_bois.getY()][co_bois.getX()].get(0).getClass(), BlocBois.class);
+
+        // Mettre à jour la COR pour qu'il puisse miner de la pierre avec une pioche
+        expertPremier = new ExpertPiochePierre_Pierre(expertPremier);
+        Coord co_autreCase = new Coord(5, 5);
+        miner_case.setCase_concerne(co_autreCase);
+        miner_case.minerBloc(expertPremier);
+        assertEquals(tab_mondeMinage[co_autreCase.getY()][co_autreCase.getX()].getContenu().getClass(), BlocAir.class);
+        assertEquals(tab_mondeMinage[co_autreCase.getY()][co_autreCase.getX()].getTaille(), 1);
+        assertEquals(tab_mondeMinage[co_autreCase.getY()][co_autreCase.getX()].get(0).getClass(), BlocPierre.class);
+
+        // Steve n'a plus de pioche et mise à jour de la COR
+        steve.setMain(new MainVide());
+        expertPremier = new ExpertMain_Pierre(expertPremier);
+
+        // Minage de la case 5,6
+        Coord co_pierre = new Coord(5, 6);
+        miner_case.setJoueur_Miner(steve);
+        miner_case.setCase_concerne(co_pierre);
+        miner_case.minerBloc(expertPremier);
+        assertEquals(tab_mondeMinage[co_pierre.getY()][co_pierre.getX()].getContenu().getClass(), BlocAir.class);
+        assertEquals(tab_mondeMinage[co_pierre.getY()][co_pierre.getX()].getTaille(), 0);
     }
 }

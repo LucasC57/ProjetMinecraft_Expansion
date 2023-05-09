@@ -50,13 +50,19 @@ public class Minage {
                 Coord droitBas = new Coord(joueur_Miner.getCoordonnees_joueur().getX(), joueur_Miner.getCoordonnees_joueur().getY()+1);
                 Coord posBas = new Coord(joueur_Miner.getCoordonnees_joueur().getX()-1, joueur_Miner.getCoordonnees_joueur().getY());
                 Coord posHaut = new Coord(joueur_Miner.getCoordonnees_joueur().getX()+2, joueur_Miner.getCoordonnees_joueur().getY());
+                Coord diagBasGauche = new Coord(joueur_Miner.getCoordonnees_joueur().getX()-1, joueur_Miner.getCoordonnees_joueur().getY()-1);
+                Coord diagBasDroit = new Coord(joueur_Miner.getCoordonnees_joueur().getX()-1, joueur_Miner.getCoordonnees_joueur().getY()+1);
+                Coord diagBasBasGauche = new Coord(joueur_Miner.getCoordonnees_joueur().getX()+1, joueur_Miner.getCoordonnees_joueur().getY());
                 // Vérif du voisinage
                 if (coo_case.equals(gaucheHaut) ||
                         coo_case.equals(gaucheBas) ||
                         coo_case.equals(droitBas) ||
                         coo_case.equals(droitHaut) ||
                         coo_case.equals(posBas) ||
-                        coo_case.equals(posHaut))
+                        coo_case.equals(posHaut) ||
+                        coo_case.equals(diagBasGauche) ||
+                        coo_case.equals(diagBasDroit) ||
+                        coo_case.equals(diagBasBasGauche))
                 {
                     voisin = true;
                 }
