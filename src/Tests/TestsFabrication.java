@@ -1,11 +1,16 @@
 package Tests;
 
-import Jeu.Coord;
+import Jeu.*;
+import Jeu.Bloc.BlocAir;
+import Jeu.Bloc.BlocBois;
+import Jeu.Experts.ExpertCraft;
+import Jeu.Experts.ExpertCraft_Planches_Baton;
+import Jeu.Item.Baton;
 import Jeu.Item.Item;
 import Jeu.Item.MainVide;
-import Jeu.Joueur;
-import Jeu.Monde;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,5 +30,30 @@ public class TestsFabrication {
         assertEquals(co_valide, steve.getCoordonnees_joueur());
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
 
+        // Remplir l'inventaire
+        ArrayList<Objets> inv_steve = new ArrayList<Objets>();
+        Inventory inv = new Inventory(inv_steve);
+        steve.setInventaire(inv);
+        steve.getInventaire().addInventory(new BlocBois());
+        steve.getInventaire().addInventory(new BlocBois());
+        assertEquals(steve.getInventaire().getTaille(), 2);
+
+        ExpertCraft expertCraftPremier = null;
+        expertCraftPremier = new ExpertCraft_Planches_Baton(expertCraftPremier);
+        ArrayList<Objets> recetteBaton = new ArrayList<Objets>();
+        // Création de la recette :
+        // 4 et 7 : Batons
+        recetteBaton.add(new BlocAir());
+        recetteBaton.add(new BlocAir());
+        recetteBaton.add(new BlocAir());
+        recetteBaton.add(new BlocAir());
+        recetteBaton.add(new BlocBois());
+        recetteBaton.add(new BlocAir());
+        recetteBaton.add(new BlocAir());
+        recetteBaton.add(new BlocBois());
+        recetteBaton.add(new BlocAir());
+        assertEquals(recetteBaton.size(), 9);
+        //Fabrication fabriTest = new Fabrication(steve, recetteBaton, expertCraftPremier);
+        //assertEquals(steve.getInventaire().getTaille(), 4);
     }
 }

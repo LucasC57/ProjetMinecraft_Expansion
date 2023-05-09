@@ -1,6 +1,7 @@
 package Jeu;
 
 import Jeu.Bloc.BlocAir;
+import Jeu.Bloc.BlocBois;
 import Jeu.Experts.ExpertCraft;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -51,7 +52,7 @@ public class Fabrication {
                 for (int i = 0; i < recette_Joueur.size(); i++) {
                     // On va éviter tout travail avec les blocs d'air
                     if (!(recette_Joueur.get(i) instanceof BlocAir)) {
-                        inv_Joueur.remove(recette_Joueur.get(i));
+                        inv_Joueur.remove(new BlocBois());
                     }
                 }
                 // On doit parcourir l'arraylist et ajouter chaque élément de celle-ci dans l'inventaire du Joueur
