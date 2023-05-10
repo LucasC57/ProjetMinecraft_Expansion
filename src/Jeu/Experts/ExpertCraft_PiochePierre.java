@@ -1,7 +1,9 @@
 package Jeu.Experts;
 
+import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocPierre;
+import Jeu.Bloc.BlocPlanche;
 import Jeu.Item.Baton;
 import Jeu.Item.PiochePierre;
 import Jeu.Objets;
@@ -35,7 +37,7 @@ public class ExpertCraft_PiochePierre extends ExpertCraft {
             Que les 3 premiers objets sont la première ligne, etc
          */
         if (recette.size() == 9 &&
-                        (recette.get(0) instanceof BlocPierre &&
+                (recette.get(0) instanceof BlocPierre &&
                         recette.get(1) instanceof BlocPierre &&
                         recette.get(2) instanceof BlocPierre &&
                         recette.get(4) instanceof Baton &&
