@@ -1,5 +1,6 @@
 package Jeu;
 
+import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocBois;
 import Jeu.Experts.ExpertCraft;
@@ -34,14 +35,22 @@ public class Fabrication {
         if (expertRecette != null) {
             ArrayList<Objets> inv_Joueur = this.getJoueur_Craft().getInventaire().getListItems();
             ArrayList<Objets> recette_Joueur = this.getRecette();
-
+            ArrayList<Objets> temp = new ArrayList<Objets>();
             // Avant tout de chose, on va vérifier que le joueur possède les éléments qui se trouve dans sa recette donnée
             for (int i = 0; i < recette_Joueur.size(); i++) {
                 // On va éviter toute comparaison avec les blocs d'air
                 if (!(recette_Joueur.get(i) instanceof BlocAir)) {
-                    if (!inv_Joueur.contains(recette_Joueur.get(i))) {
-                        throw new InventoryException();
-                    }
+                    temp.add(recette.get(i));
+                }
+            }
+            // Première vérification :
+            if (this.getJoueur_Craft().getInventaire().getTaille() < temp.size()) {
+                throw new InventoryException();
+            }
+            // Il y a le même nombre d'éléments, mais maintenant il faut vérifier si les éléments de temp sont dans son inventaire
+            for (Objets obj : temp) {
+                if (!inv_Joueur.contains(obj)) {
+                    throw new InventoryException();
                 }
             }
             // Le Joueur à bien tous les éléments dans son inventaire
@@ -52,7 +61,7 @@ public class Fabrication {
                 for (int i = 0; i < recette_Joueur.size(); i++) {
                     // On va éviter tout travail avec les blocs d'air
                     if (!(recette_Joueur.get(i) instanceof BlocAir)) {
-                        inv_Joueur.remove(new BlocBois());
+                        inv_Joueur.remove(recette_Joueur.get(i));
                     }
                 }
                 // On doit parcourir l'arraylist et ajouter chaque élément de celle-ci dans l'inventaire du Joueur
