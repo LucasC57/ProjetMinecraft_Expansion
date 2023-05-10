@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Joueur {
     // Champs :
     private String nom;
-    private Inventory inventaire = null;
+    private Inventory inventaire = new Inventory();
     private Item main = null;
     private Coord coordonnees_joueur;
     private Monde monde;

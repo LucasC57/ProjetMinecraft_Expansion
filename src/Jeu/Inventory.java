@@ -12,6 +12,9 @@ public class Inventory {
     public Inventory(ArrayList<Objets> listItems) {
         setListItems(listItems);
     }
+    public Inventory() {
+        setListItems(listItems);
+    }
     public void setListItems(ArrayList<Objets> listItems) {
         // On accepte un inventaire vide
         this.listItems = listItems;

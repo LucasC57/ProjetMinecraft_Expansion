@@ -1,5 +1,6 @@
 package Jeu.Experts;
 
+import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocPierre;
 import Jeu.Item.Baton;
 import Jeu.Item.PiochePierre;
@@ -38,7 +39,11 @@ public class ExpertCraft_PiochePierre extends ExpertCraft {
                         recette.get(1) instanceof BlocPierre &&
                         recette.get(2) instanceof BlocPierre &&
                         recette.get(4) instanceof Baton &&
-                        recette.get(7) instanceof Baton))
+                        recette.get(7) instanceof Baton &&
+                        recette.get(3) instanceof BlocAir &&
+                        recette.get(5) instanceof BlocAir &&
+                        recette.get(6) instanceof BlocAir &&
+                        recette.get(8) instanceof BlocAir))
         {
             return true;
         }
