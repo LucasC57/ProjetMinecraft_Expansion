@@ -2,6 +2,7 @@ package Tests;
 
 import Jeu.*;
 import Jeu.Item.Item;
+import Jeu.Item.MainVide;
 import Jeu.Item.PiocheBois;
 import org.junit.jupiter.api.Test;
 
@@ -28,12 +29,12 @@ public class TestsSteve {
         Coord co_steve = new Coord(2, 6);
 
         // Test sur l'inventaire :
-        Joueur Steve = new Joueur("Steve", inventaire, null, co_steve, monde_normal);
+        Joueur Steve = new Joueur("Steve", inventaire, new MainVide(), co_steve, monde_normal);
 
         // Test sur steve :
         assertEquals("Steve", Steve.getNom());
         assertTrue(Steve.getInventaire().getListItems().isEmpty());
-        assertNull(Steve.getMain());
+        assertEquals(Steve.getMain().getClass(), MainVide.class);
         assertEquals(monde_normal.getPoint_respawn(), Steve.getCoordonnees_joueur());
     }
 }
