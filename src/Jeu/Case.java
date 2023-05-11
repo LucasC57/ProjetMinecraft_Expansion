@@ -78,6 +78,9 @@ public class Case {
         }
         if (this.getContenu().isFluidite()) {
             Case[][] listCases = monde.getTab_monde();
+            if (listCases[position.getY()][position.getX()+1].getContenu().isFluidite()) {
+                throw new BlocFluideException();
+            }
             this.items_au_sol.add(obj);
         } else {
             throw new BlocNonFluideException();

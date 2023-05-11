@@ -98,13 +98,13 @@ public class Deplacement {
                         this.allerHautDroite();
                     }
                 }
-                if (getDirection2().equals("Bas")) {
+                if (getDirection().equals("Bas")) {
                     // Bas :
-                    if (getDirection().equals("Gauche")) {
+                    if (getDirection2().equals("Gauche")) {
                         this.allerBasGauche();
                     }
                     // Haut :
-                    if (getDirection().equals("Droite")) {
+                    if (getDirection2().equals("Droite")) {
                         this.allerBasDroite();
                     }
                 }
