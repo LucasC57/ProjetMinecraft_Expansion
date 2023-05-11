@@ -31,9 +31,100 @@ public class Minage {
     public void setCase_concerne(Coord case_concerne) {
         this.case_concerne = case_concerne;
     }
-    /*
-    Fonction qui va gérer le minage
-     */
+
+
+    // Fcnction qui gère le voisinage
+    public boolean blocDansVoisinageJoueur() {
+        boolean voisin = false;
+        Coord coo_case = this.getCase_concerne();
+        int x_case = coo_case.getX();
+        int y_case = coo_case.getY();
+        int x_joueur = joueur_Miner.getCoordonnees_joueur().getX();
+        int y_joueur = joueur_Miner.getCoordonnees_joueur().getY();
+
+        // Voisinage proche :
+        if ((x_case <= x_joueur - 1 || x_case <= x_joueur + 1) && (y_case <= y_joueur - 1 || y_case <= y_joueur + 1)) {
+            voisin = true;
+        }
+
+        // Voisinage lointain (2 Blocs) :
+
+        if ((x_case == x_joueur - 3 || x_case == x_joueur + 2) && (y_case == y_joueur - 2 || y_case == y_joueur + 2)
+                || ((x_case == x_joueur - 3) && (y_case >= y_joueur - 1 && y_case <= y_joueur + 1)) ||
+                ((x_case == x_joueur + 2) && (y_case >= y_joueur - 1 && y_case <= y_joueur + 1)) ||
+                ((y_case == y_joueur - 2) && (x_case >= x_joueur - 2 && x_case <= x_joueur + 2)) ||
+                ((y_case == y_joueur + 2) && (x_case >= x_joueur - 2 && x_case <= x_joueur + 2))) {
+            // 8 Cas :
+            // Cas 1 : Plage horizontale haut
+            if (x_case == x_joueur - 3 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case + 1].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Cas 2 : Plage horizontale bas
+            if (x_case == x_joueur + 2 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case - 1].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Cas 3 : Plage verticale gauche
+            if (y_case == y_joueur - 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Cas 4 : Plage verticale droite
+            if (y_case == y_joueur + 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coins :
+            // Coin haut gauche :
+            if (x_case == x_joueur - 3 && y_case == y_joueur - 2) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case + 1].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coin haut droit :
+            if (x_case == x_joueur - 3 && y_case == y_joueur + 2) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case + 1].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coin bas gauche :
+            if (x_case == x_joueur + 2 && y_case == y_joueur - 2) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case - 1].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coin bas droit :
+            if (x_case == x_joueur + 2 && y_case == y_joueur + 2) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case - 1].getContenu() instanceof BlocAir) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+        }
+        return voisin;
+    }
+
+    // Fonction qui gère le minage
     public void minerBloc(Expert expert) throws Exception {
         if (expert != null) {
             // Travail avec la COR :
@@ -45,103 +136,8 @@ public class Minage {
             try {
                 // On défini le voisinage proche pour le minage
                 Coord coo_case = this.getCase_concerne();
-                boolean voisin = false;
-                /*Coord gaucheHaut = new Coord(joueur_Miner.getCoordonnees_joueur().getX()+1, joueur_Miner.getCoordonnees_joueur().getY()-1);
-                Coord gaucheBas = new Coord(joueur_Miner.getCoordonnees_joueur().getX(), joueur_Miner.getCoordonnees_joueur().getY()-1);
-                Coord droitHaut = new Coord(joueur_Miner.getCoordonnees_joueur().getX()+1, joueur_Miner.getCoordonnees_joueur().getY()+1);
-                Coord droitBas = new Coord(joueur_Miner.getCoordonnees_joueur().getX(), joueur_Miner.getCoordonnees_joueur().getY()+1);
-                Coord posBas = new Coord(joueur_Miner.getCoordonnees_joueur().getX()-1, joueur_Miner.getCoordonnees_joueur().getY());
-                Coord posHaut = new Coord(joueur_Miner.getCoordonnees_joueur().getX()+2, joueur_Miner.getCoordonnees_joueur().getY());
-                Coord diagBasGauche = new Coord(joueur_Miner.getCoordonnees_joueur().getX()-1, joueur_Miner.getCoordonnees_joueur().getY()-1);
-                Coord diagBasDroit = new Coord(joueur_Miner.getCoordonnees_joueur().getX()-1, joueur_Miner.getCoordonnees_joueur().getY()+1);
-                Coord diagBasBasGauche = new Coord(joueur_Miner.getCoordonnees_joueur().getX()+1, joueur_Miner.getCoordonnees_joueur().getY());
-                */
-                int x_case = coo_case.getX();
-                int y_case = coo_case.getY();
-                int x_joueur = joueur_Miner.getCoordonnees_joueur().getX();
-                int y_joueur = joueur_Miner.getCoordonnees_joueur().getY();
-
-                // Voisinage proche :
-                if ((x_case <= x_joueur - 1 || x_case <= x_joueur + 1) && (y_case <= y_joueur - 1 || y_case <= y_joueur + 1)) {
-                    voisin = true;
-                }
-
-                // Voisinage lointain (2 Blocs) :
-
-                if ((x_case == x_joueur - 3 || x_case == x_joueur + 2) && (y_case == y_joueur - 2 || y_case == y_joueur + 2)
-                        || ((x_case == x_joueur - 3) && (y_case >= y_joueur - 1 && y_case <= y_joueur + 1)) ||
-                        ((x_case == x_joueur + 2) && (y_case >= y_joueur - 1 && y_case <= y_joueur + 1)) ||
-                        ((y_case == y_joueur - 2) && (x_case >= x_joueur - 2 && x_case <= x_joueur + 2)) ||
-                        ((y_case == y_joueur + 2) && (x_case >= x_joueur - 2 && x_case <= x_joueur + 2))) {
-                    // 8 Cas :
-                    // Cas 1 : Plage horizontale haut
-                    if (x_case == x_joueur - 3 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case + 1].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                    // Cas 2 : Plage horizontale bas
-                    if (x_case == x_joueur + 2 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case - 1].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                    // Cas 3 : Plage verticale gauche
-                    if (y_case == y_joueur - 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                    // Cas 4 : Plage verticale droite
-                    if (y_case == y_joueur + 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                    // Coins :
-                    // Coin haut gauche :
-                    if (x_case == x_joueur - 3 && y_case == y_joueur - 2) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case + 1].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                    // Coin haut droit :
-                    if (x_case == x_joueur - 3 && y_case == y_joueur + 2) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case + 1].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                    // Coin bas gauche :
-                    if (x_case == x_joueur + 2 && y_case == y_joueur - 2) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case - 1].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                    // Coin bas droit :
-                    if (x_case == x_joueur + 2 && y_case == y_joueur + 2) {
-                        if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case - 1].getContenu() instanceof BlocAir) {
-                            voisin = true;
-                        } else {
-                            voisin = false;
-                        }
-                    }
-                }
                 // Si c'est bien dans le voisinage du joueur :
-                if (voisin) {
+                if (blocDansVoisinageJoueur()) {
                     Objets res = expert.expertiser(mainJoueur, blocVise);
                     // On doit remplacer le bloc par de l'air s'il peut bien miner
                     if (res != null) {
