@@ -7,33 +7,66 @@ import Exception.*;
 
 import java.util.Objects;
 
+/**
+ * La classe Minage répresente l'action de miner un bloc spécifique par un joueur.
+ * Cette classe introduit un principe de voisinage du joueur ainsi qu'une opération de minage en fonction
+ * de l'expert fourni.
+ */
 public class Minage {
-
-    // Champs
+    /**
+     * Joueur effectuant le minage.
+     */
     private Joueur joueur_Miner;
+    /**
+     * Les coordonnées de la case où se trouve le bloc qui sera miné.
+     */
     private Coord case_concerne;
 
-    // Constructeur
+    /**
+     * Constructeur de la classe Minage.
+     * @param joueur_Miner Joueur effectuant le minage.
+     * @param case_concerne Coordonnées de la case où se trouve le bloc à miner.
+     * @param expert Expert utilisé pour effectuer le minage, simule une permission.
+     * @throws Exception
+     */
     public Minage(Joueur joueur_Miner, Coord case_concerne, Expert expert) throws Exception {
         setJoueur_Miner(joueur_Miner);
         setCase_concerne(case_concerne);
         minerBloc(expert); // Il faudra donner le premier maillon
     }
+    /**
+     * Getter pour le joueur effectuant le minage.
+     * @return Le joueur effectuant le minage.
+     */
     public Joueur getJoueur_Miner() {
         return joueur_Miner;
     }
+    /**
+     * Setter pour le joueur effectuant le minage.
+     * @param joueur_Miner Le joueur effectuant le minage.
+     */
     public void setJoueur_Miner(Joueur joueur_Miner) {
         this.joueur_Miner = joueur_Miner;
     }
+    /**
+     * Getter pour les coordonnées de la case où se trouve le bloc à miner.
+     * @return Les coordonnées de la case où se trouve le bloc à miner.
+     */
     public Coord getCase_concerne() {
         return case_concerne;
     }
+
+    /**
+     * Setter pour les coordonnées de la case où se trouve le bloc à miner.
+     * @param case_concerne Les coordonnées de la case où se trouve le bloc à miner.
+     */
     public void setCase_concerne(Coord case_concerne) {
         this.case_concerne = case_concerne;
     }
-
-
-    // Fcnction qui gère le voisinage
+    /**
+     * Fonction qui gère le voisinage du joueur effectuant le minage.
+     * @return True si la case où se trouve le bloc à miner est dans le voisinage proche ou lointain du joueur effectuant le minage.
+     */
     public boolean blocDansVoisinageJoueur() {
         boolean voisin = false;
         Coord coo_case = this.getCase_concerne();
@@ -123,8 +156,11 @@ public class Minage {
         }
         return voisin;
     }
-
-    // Fonction qui gère le minage
+    /**
+     * Fonction qui effectue le minage du bloc à la case concernée en utilisant l'expert donné en paramètre.
+     * @param expert Expert utilisé pour vérifier la permission du joueur sur le bloc concerné.
+     * @throws Exception
+     */
     public void minerBloc(Expert expert) throws Exception {
         if (expert != null) {
             // Travail avec la COR :
