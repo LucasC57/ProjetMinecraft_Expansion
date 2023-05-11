@@ -22,7 +22,8 @@ public class ExpertCraft_Bois_Planches extends ExpertCraft{
         }
         ArrayList<Objets> resRecette = new ArrayList<Objets>();
         for (int i = 0; i < 4; i++) {
-            resRecette.add(i, new BlocPlanche());
+            Bloc mm = new BlocPlanche();
+            resRecette.add(mm);
         }
         return resRecette;
     }

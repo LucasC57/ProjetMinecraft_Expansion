@@ -32,6 +32,22 @@ public class Ramassage {
     public void setCoord_case(Coord coord_case) {
         this.coord_case = coord_case;
     }
+
+    // Fcnction qui gère le voisinage
+    public boolean blocDansVoisinageJoueur() {
+        boolean voisin = false;
+        Coord coo_case = this.getCoord_case();
+        int x_case = coo_case.getX();
+        int y_case = coo_case.getY();
+        int x_joueur = joueur_ramassage.getCoordonnees_joueur().getX();
+        int y_joueur = joueur_ramassage.getCoordonnees_joueur().getY();
+
+        // Voisinage proche :
+        if ((x_case <= x_joueur - 1 || x_case <= x_joueur + 1) && (y_case <= y_joueur - 1 || y_case <= y_joueur + 1)) {
+            voisin = true;
+        }
+        return voisin;
+    }
     public void ramasserItems() throws ListObjetsInexistantException, CoordException, CaseNonVoisineException, BlocNonFluideException, BlocFluideException, ObjetInexistantException {
         // On va récupérer le tab_monde
         boolean voisin = false;
@@ -52,17 +68,8 @@ public class Ramassage {
                 liste_cases[joueur_concerne.getCoordonnees_joueur().getY()][joueur_concerne.getCoordonnees_joueur().getX()].removeObjets(i);
             }
         } else {
-            // Il faut savoir si la case donnée est dans le voisinage du joueur
-            // 4 cas à gérer
-            Coord gaucheHaut = new Coord(joueur_concerne.getCoordonnees_joueur().getX()+1, joueur_concerne.getCoordonnees_joueur().getY()-1);
-            Coord gaucheBas = new Coord(joueur_concerne.getCoordonnees_joueur().getX(), joueur_concerne.getCoordonnees_joueur().getY()-1);
-            Coord droitHaut = new Coord(joueur_concerne.getCoordonnees_joueur().getX()+1, joueur_concerne.getCoordonnees_joueur().getY()+1);
-            Coord droitBas = new Coord(joueur_concerne.getCoordonnees_joueur().getX(), joueur_concerne.getCoordonnees_joueur().getY()+1);
-            if (coo_case.equals(gaucheHaut) || coo_case.equals(gaucheBas) || coo_case.equals(droitHaut) || coo_case.equals(droitBas)) {
-                voisin = true;
-            }
             // Si c'est bien une case voisine :
-            if (voisin) {
+            if (blocDansVoisinageJoueur()) {
                 for (int i = 0; i < liste_cases[coo_case.getY()][coo_case.getX()].getTaille(); i++) {
                     Objets obj_case = liste_cases[coo_case.getY()][coo_case.getX()].getItems_au_sol().get(i);
                     // On ajoute dans son inventaire

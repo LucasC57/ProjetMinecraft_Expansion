@@ -143,6 +143,7 @@ public class Minage {
                     if (res != null) {
                         this.joueur_Miner.getMonde().getTab_monde()[coo_case.getY()][coo_case.getX()].setContenu(new BlocAir());
                         // On doit aussi ajouter le bloc en question dans la liste des items au sol de la case
+                        System.out.println(this.joueur_Miner.getMonde().getTab_monde()[coo_case.getY()][coo_case.getX()].getContenu());
                         this.joueur_Miner.getMonde().getTab_monde()[coo_case.getY()][coo_case.getX()].addItemsAuSol(res);
                     } else {
                         // Le bloc est que même cassé mais rien de drop
