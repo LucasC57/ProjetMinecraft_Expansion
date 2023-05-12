@@ -2,38 +2,76 @@ package Jeu;
 import Exception.*;
 import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * La classe Ramassage représente l'action de ramasser un item dans une case dans le monde où le joueur se trouve.
+ * Cette classe introduit également le même principe de voisinage que la classe Minage.
+ */
 public class Ramassage {
-    // Champs : 
+    /**
+     * Le joueur qui est concerné par l'action du ramassage.
+     */
     private Joueur joueur_ramassage;
+    /**
+     * Les coordonnées de la case pointé par l'action du ramassage.
+     */
     private Coord coord_case;
-    
-    // Constructeurs :
+
+    /**
+     * Constructeur de la classe Ramassage
+     * @param joueur_ramassage Le joueur concerné par l'action du ramassage.
+     * @param coord_case Les coordonnées de la case pointé par cette action.
+     * @throws PlayerArgumentException
+     * @throws ListObjetsInexistantException
+     * @throws CoordException
+     * @throws CaseNonVoisineException
+     * @throws BlocNonFluideException
+     * @throws BlocFluideException
+     * @throws ObjetInexistantException
+     */
     public Ramassage(Joueur joueur_ramassage, Coord coord_case) throws PlayerArgumentException, ListObjetsInexistantException, CoordException, CaseNonVoisineException, BlocNonFluideException, BlocFluideException, ObjetInexistantException {
         setJoueur_Ramassage(joueur_ramassage);
         setCoord_case(coord_case);
         ramasserItems();
     }
+    /**
+     * Setter concernant le joueur pointé par l'action du ramassage.
+     * @param joueur_ramassage Le joueur pointé par l'action du ramassage.
+     * @throws PlayerArgumentException Si le joueur n'est pas initialisé ou qu'il n'existe pas.
+     */
     public void setJoueur_Ramassage(Joueur joueur_ramassage) throws PlayerArgumentException {
         if (joueur_ramassage == null) {
             throw new PlayerArgumentException();
         }
         this.joueur_ramassage = joueur_ramassage;
     }
+    /**
+     * Getter concernant le joueur pointé par l'action du ramassage.
+     * @return Le joueur pointé par l'action du ramassage.
+     */
     public Joueur getJoueur_ramassage() {
         return joueur_ramassage;
     }
+    /**
+     * Getter concernant les coordonnées de la case pointé par l'action du ramassage.
+     * @return Les coordoonées de la case pointé par l'action du ramassage.
+     */
     public Coord getCoord_case() {
         return coord_case;
     }
+    /**
+     * Setter concernant les coordonnées de la case pointé par l'action du ramassage.
+     * @param coord_case Les coordonnées de la case pointé par l'action du ramassage.
+     */
     public void setCoord_case(Coord coord_case) {
         this.coord_case = coord_case;
     }
-
-    // Fcnction qui gère le voisinage
+    /**
+     * Fonction booléenne qui va gérer le voisinage du joueur pointé par l'action du ramassage.
+     * @return True si les coordoonées de la case pointé par l'action du ramassage est dans le voisinage proche du joueur.
+     */
     public boolean blocDansVoisinageJoueur() {
         boolean voisin = false;
         Coord coo_case = this.getCoord_case();
@@ -48,7 +86,12 @@ public class Ramassage {
         }
         return voisin;
     }
-    public void ramasserItems() throws ListObjetsInexistantException, CoordException, CaseNonVoisineException, BlocNonFluideException, BlocFluideException, ObjetInexistantException {
+    /**
+     * Procédure principale de la classe Ramassage qui va effectuer l'action à proprement parlé.
+     * @throws ListObjetsInexistantException Lié au méthodes utilisées et à la classe Case.
+     * @throws CaseNonVoisineException Si la case lié aux coordonnées données n'est pas dans le voisinage proche du joueur.
+     */
+    public void ramasserItems() throws ListObjetsInexistantException, CaseNonVoisineException {
         // On va récupérer le tab_monde
         boolean voisin = false;
         Joueur joueur_concerne = this.getJoueur_ramassage();
