@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestsDeplacements {
 
     private String mondeTest = "projet_minecraft/src/Fichiers/MondeTestDeplacement.csv";
-    /*@Test
+    @Test
     public void testDeplacementsCorrectsTouteDirection() throws Exception {
         Monde monde_normal = new Monde(mondeTest);
 
@@ -97,7 +97,7 @@ public class TestsDeplacements {
             Deplacement depImpossible = new Deplacement(steve, "Haut");
         });
         assertEquals(DeplacementException.class, testPresenceExcAutre.getClass());
-    }*/
+    }
     @Test
     public void testDeplacementsAvecObstacle() throws Exception {
         Monde monde_normal = new Monde(mondeTest);
