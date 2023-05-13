@@ -1,8 +1,7 @@
 package Jeu;
 
 import Jeu.Bloc.BlocAir;
-import Jeu.Bloc.BlocBois;
-import Jeu.Experts.Expert;
+import Jeu.Experts.ExpertMinage.Expert;
 import Exception.*;
 
 import java.util.Objects;
@@ -188,7 +187,7 @@ public class Minage {
                     throw new CaseNonVoisineException();
                 }
             } catch (ExpertManquantException e) {
-                System.out.printf("\nIl n'y a pas d'expert pour cette configuration : \n%s\n%s\n", mainJoueur.getClass().getSimpleName(), blocVise.getClass().getSimpleName());
+                //System.out.printf("\nIl n'y a pas d'expert pour cette configuration : \n%s\n%s\n", mainJoueur.getClass().getSimpleName(), blocVise.getClass().getSimpleName());
             }
         } else {
             throw new CORVideException();
