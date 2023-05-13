@@ -1,8 +1,8 @@
-package Jeu.Experts;
+package Jeu.Experts.ExpertMinage;
 
-import Jeu.Bloc.Bloc;
 import Exception.*;
 import Jeu.Bloc.BlocPierre;
+import Jeu.Experts.ExpertMinage.Expert;
 import Jeu.Item.MainVide;
 import Jeu.Objets;
 

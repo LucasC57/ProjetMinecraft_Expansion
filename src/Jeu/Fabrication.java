@@ -1,9 +1,7 @@
 package Jeu;
 
-import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
-import Jeu.Bloc.BlocBois;
-import Jeu.Experts.ExpertCraft;
+import Jeu.Experts.ExpertCraft.ExpertCraft;
 import java.util.ArrayList;
 import java.util.Objects;
 

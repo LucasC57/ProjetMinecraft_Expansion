@@ -5,7 +5,7 @@ import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocBois;
 import Jeu.Bloc.BlocPierre;
 import Jeu.Bloc.BlocPlanche;
-import Jeu.Experts.*;
+import Jeu.Experts.ExpertCraft.*;
 import Jeu.Item.*;
 import org.junit.jupiter.api.Test;
 import Exception.*;

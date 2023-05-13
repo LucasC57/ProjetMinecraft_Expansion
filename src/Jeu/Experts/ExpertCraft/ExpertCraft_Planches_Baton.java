@@ -1,8 +1,8 @@
-package Jeu.Experts;
+package Jeu.Experts.ExpertCraft;
 
 import Jeu.Bloc.BlocAir;
-import Jeu.Bloc.BlocBois;
 import Jeu.Bloc.BlocPlanche;
+import Jeu.Experts.ExpertCraft.ExpertCraft;
 import Jeu.Item.Baton;
 import Jeu.Objets;
 import Exception.*;

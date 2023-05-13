@@ -1,6 +1,5 @@
-package Jeu.Experts;
+package Jeu.Experts.ExpertCraft;
 
-import Jeu.Joueur;
 import Jeu.Objets;
 import Exception.*;
 

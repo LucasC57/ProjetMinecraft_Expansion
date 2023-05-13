@@ -5,7 +5,7 @@ import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocBois;
 import Jeu.Bloc.BlocPierre;
-import Jeu.Experts.*;
+import Jeu.Experts.ExpertMinage.*;
 import Jeu.Item.Item;
 import Jeu.Item.MainVide;
 import Jeu.Item.PiochePierre;

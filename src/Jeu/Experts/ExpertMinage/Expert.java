@@ -1,6 +1,5 @@
-package Jeu.Experts;
+package Jeu.Experts.ExpertMinage;
 import Exception.*;
-import Jeu.Bloc.Bloc;
 import Jeu.Objets;
 
 public abstract class Expert {

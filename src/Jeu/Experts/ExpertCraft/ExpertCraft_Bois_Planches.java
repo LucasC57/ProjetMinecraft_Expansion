@@ -1,16 +1,16 @@
-package Jeu.Experts;
+package Jeu.Experts.ExpertCraft;
 
 import Jeu.Bloc.Bloc;
 import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocBois;
 import Jeu.Bloc.BlocPlanche;
-import Jeu.Item.PiocheBois;
+import Jeu.Experts.ExpertCraft.ExpertCraft;
 import Jeu.Objets;
 import Exception.*;
 
 import java.util.ArrayList;
 
-public class ExpertCraft_Bois_Planches extends ExpertCraft{
+public class ExpertCraft_Bois_Planches extends ExpertCraft {
     public ExpertCraft_Bois_Planches(ExpertCraft suivant) {
         super(suivant);
     }
