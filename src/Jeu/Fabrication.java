@@ -33,20 +33,20 @@ public class Fabrication {
         if (expertRecette != null) {
             ArrayList<Objets> inv_Joueur = this.getJoueur_Craft().getInventaire().getListItems();
             ArrayList<Objets> recette_Joueur = this.getRecette();
-            ArrayList<Objets> temp = new ArrayList<Objets>();
+            ArrayList<Objets> objetsNoAir = new ArrayList<Objets>();
             // Avant tout de chose, on va vérifier que le joueur possède les éléments qui se trouve dans sa recette donnée
             for (int i = 0; i < recette_Joueur.size(); i++) {
                 // On va éviter toute comparaison avec les blocs d'air
                 if (!(recette_Joueur.get(i) instanceof BlocAir)) {
-                    temp.add(recette.get(i));
+                    objetsNoAir.add(recette.get(i));
                 }
             }
             // Première vérification :
-            if (this.getJoueur_Craft().getInventaire().getTaille() < temp.size()) {
+            if (this.getJoueur_Craft().getInventaire().getTaille() < objetsNoAir.size()) {
                 throw new InventoryException();
             }
-            // Il y a le même nombre d'éléments, mais maintenant il faut vérifier si les éléments de temp sont dans son inventaire
-            for (Objets obj : temp) {
+            // Il y a le même nombre d'éléments, mais maintenant il faut vérifier si les éléments de objetsNoAir sont dans son inventaire
+            for (Objets obj : objetsNoAir) {
                 if (!inv_Joueur.contains(obj)) {
                     throw new InventoryException();
                 }
@@ -56,11 +56,8 @@ public class Fabrication {
             try {
                 ArrayList<Objets> res_recette = expertRecette.expertiserCraft(recette_Joueur);
                 // On doit supprimer de l'inventaire du Joueur les éléments dans la recette :
-                for (int i = 0; i < recette_Joueur.size(); i++) {
-                    // On va éviter tout travail avec les blocs d'air
-                    if (!(recette_Joueur.get(i) instanceof BlocAir)) {
-                        inv_Joueur.remove(recette_Joueur.get(i));
-                    }
+                for (int i = 0; i < objetsNoAir.size(); i++) {
+                    inv_Joueur.remove(objetsNoAir.get(i));
                 }
                 // On doit parcourir l'arraylist et ajouter chaque élément de celle-ci dans l'inventaire du Joueur
                 for (int j = 0; j < res_recette.size(); j++) {

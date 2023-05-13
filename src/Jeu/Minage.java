@@ -89,7 +89,7 @@ public class Minage {
             // 8 Cas :
             // Cas 1 : Plage horizontale haut
             if (x_case == x_joueur - 3 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case + 1].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case + 1].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;
@@ -97,7 +97,7 @@ public class Minage {
             }
             // Cas 2 : Plage horizontale bas
             if (x_case == x_joueur + 2 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case - 1].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case][x_case - 1].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;
@@ -105,7 +105,7 @@ public class Minage {
             }
             // Cas 3 : Plage verticale gauche
             if (y_case == y_joueur - 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;
@@ -113,7 +113,7 @@ public class Minage {
             }
             // Cas 4 : Plage verticale droite
             if (y_case == y_joueur + 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;
@@ -122,7 +122,7 @@ public class Minage {
             // Coins :
             // Coin haut gauche :
             if (x_case == x_joueur - 3 && y_case == y_joueur - 2) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case + 1].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case + 1].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;
@@ -130,7 +130,7 @@ public class Minage {
             }
             // Coin haut droit :
             if (x_case == x_joueur - 3 && y_case == y_joueur + 2) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case + 1].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case + 1].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;
@@ -138,7 +138,7 @@ public class Minage {
             }
             // Coin bas gauche :
             if (x_case == x_joueur + 2 && y_case == y_joueur - 2) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case - 1].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case + 1][x_case - 1].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;
@@ -146,7 +146,7 @@ public class Minage {
             }
             // Coin bas droit :
             if (x_case == x_joueur + 2 && y_case == y_joueur + 2) {
-                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case - 1].getContenu() instanceof BlocAir) {
+                if (joueur_Miner.getMonde().getTab_monde()[y_case - 1][x_case - 1].getContenu().isFluidite()) {
                     voisin = true;
                 } else {
                     voisin = false;

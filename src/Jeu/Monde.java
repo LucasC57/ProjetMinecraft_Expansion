@@ -104,7 +104,7 @@ public class Monde {
                     }
                     Case case_monde = new Case(bloc_create, coord_case, this); // Bloc, coord
                     if (cases[i].equals("R")) {
-                        this.point_respawn = case_monde.getCoord();
+                        setPoint_respawn(case_monde.getCoord());
                     }
                     // On remplit le tab_monde
                     if (tab_monde != null) {

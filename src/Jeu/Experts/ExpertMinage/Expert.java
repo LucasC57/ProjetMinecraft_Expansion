@@ -18,7 +18,7 @@ public abstract class Expert {
             // S'il ne sait pas mais qu'il a un suivant dans la liste chaine, il lui repasse la ligne et qu'il se débrouille !
             getSuivant().expertiser(dansMain, blocVise);
         } else {
-            // Sinon, on est arrivé au bout sans trouver un parser
+            // Sinon, on est arrivé au bout sans trouver un expert
             // et on lance une exception ! Que le prog appelant se débrouille avec cette ligne !
             throw new ExpertManquantException();
         }

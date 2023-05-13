@@ -93,7 +93,6 @@ public class Ramassage {
      */
     public void ramasserItems() throws ListObjetsInexistantException, CaseNonVoisineException {
         // On va récupérer le tab_monde
-        boolean voisin = false;
         Joueur joueur_concerne = this.getJoueur_ramassage();
         Case[][] liste_cases = joueur_concerne.getMonde().getTab_monde();
 
