@@ -23,13 +23,6 @@ public class TestsIntegration {
 
     @Test
     public void testFinal() throws Exception {
-        // Variables utiles :
-        int cpt_bois = 0;
-        int cpt_planche = 0;
-        int cpt_baton = 0;
-        int cpt_pierre = 0;
-        int cpt_piocheB = 0;
-        int cpt_piocheP = 0;
         Monde monde = new Monde(monde_test);
 
         // Création du joueur
@@ -75,9 +68,7 @@ public class TestsIntegration {
 
         // Vérifier qu'il a 3 blocs de bois dans son inventaire
         assertEquals(steve.getInventaire().getTaille(), 3);
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            assertEquals(steve.getInventaire().get(i).getClass(), BlocBois.class);
-        }
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 3);
 
         // Il craft 4 planches avec un seul bloc de bois
 
@@ -96,16 +87,8 @@ public class TestsIntegration {
 
         // Vérification de l'inventaire
         assertEquals(steve.getInventaire().getTaille(), 6);
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            if (steve.getInventaire().get(i) instanceof BlocBois) {
-                cpt_bois++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPlanche) {
-                cpt_planche++;
-            }
-        }
-        assertEquals(cpt_bois, 2);
-        assertEquals(cpt_planche, 4);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 4);
 
         // Steve fabrique 4 batons
         ArrayList<Objets> recette_batons = new ArrayList<Objets>();
@@ -126,22 +109,9 @@ public class TestsIntegration {
 
         // Vérification inventaire
         assertEquals(steve.getInventaire().getTaille(), 8);
-        cpt_bois = 0;
-        cpt_planche = 0;
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            if (steve.getInventaire().get(i) instanceof BlocBois) {
-                cpt_bois++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPlanche) {
-                cpt_planche++;
-            }
-            if (steve.getInventaire().get(i) instanceof Baton) {
-                cpt_baton++;
-            }
-        }
-        assertEquals(cpt_bois, 2);
-        assertEquals(cpt_planche, 2);
-        assertEquals(cpt_baton, 4);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 4);
 
         // Steve se déplace au 2eme arbre
         dep_droite.allerDroite();
@@ -170,23 +140,9 @@ public class TestsIntegration {
 
         // Vérification inventaire
         assertEquals(steve.getInventaire().getTaille(), 10);
-        cpt_bois = 0;
-        cpt_planche = 0;
-        cpt_baton = 0;
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            if (steve.getInventaire().get(i) instanceof BlocBois) {
-                cpt_bois++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPlanche) {
-                cpt_planche++;
-            }
-            if (steve.getInventaire().get(i) instanceof Baton) {
-                cpt_baton++;
-            }
-        }
-        assertEquals(cpt_bois, 4);
-        assertEquals(cpt_planche, 2);
-        assertEquals(cpt_baton, 4);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 4);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 4);
 
         // Steve fabrique une pioche en bois
         // Il faut fabriquer en plus des planches
@@ -212,27 +168,10 @@ public class TestsIntegration {
 
         // Vérification inventaire
         assertEquals(steve.getInventaire().getTaille(), 9);
-        cpt_bois = 0;
-        cpt_planche = 0;
-        cpt_baton = 0;
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            if (steve.getInventaire().get(i) instanceof BlocBois) {
-                cpt_bois++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPlanche) {
-                cpt_planche++;
-            }
-            if (steve.getInventaire().get(i) instanceof Baton) {
-                cpt_baton++;
-            }
-            if (steve.getInventaire().get(i) instanceof PiocheBois) {
-                cpt_piocheB++;
-            }
-        }
-        assertEquals(cpt_bois, 3);
-        assertEquals(cpt_planche, 3);
-        assertEquals(cpt_baton, 2);
-        assertEquals(cpt_piocheB, 1);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
 
         // Steve va vers la zone en pierre
         Deplacement dep_gauche = new Deplacement(steve, "Gauche");
@@ -259,32 +198,11 @@ public class TestsIntegration {
 
         // Vérification de l'inventaire
         assertEquals(steve.getInventaire().getTaille(), 11);
-        cpt_bois = 0;
-        cpt_planche = 0;
-        cpt_baton = 0;
-        cpt_piocheB = 0;
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            if (steve.getInventaire().get(i) instanceof BlocBois) {
-                cpt_bois++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPlanche) {
-                cpt_planche++;
-            }
-            if (steve.getInventaire().get(i) instanceof Baton) {
-                cpt_baton++;
-            }
-            if (steve.getInventaire().get(i) instanceof PiocheBois) {
-                cpt_piocheB++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPierre) {
-                cpt_pierre++;
-            }
-        }
-        assertEquals(cpt_bois, 3);
-        assertEquals(cpt_planche, 3);
-        assertEquals(cpt_baton, 2);
-        assertEquals(cpt_piocheB, 1);
-        assertEquals(cpt_pierre, 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 2);
 
         // Steve descend dans le trou qu'il vient de miner :
         Deplacement aller_dans_trou = new Deplacement(steve, "Bas", "Gauche");
@@ -306,33 +224,11 @@ public class TestsIntegration {
 
         // Vérification de l'inventaire :
         assertEquals(steve.getInventaire().getTaille(), 13);
-        cpt_bois = 0;
-        cpt_planche = 0;
-        cpt_baton = 0;
-        cpt_piocheB = 0;
-        cpt_pierre = 0;
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            if (steve.getInventaire().get(i) instanceof BlocBois) {
-                cpt_bois++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPlanche) {
-                cpt_planche++;
-            }
-            if (steve.getInventaire().get(i) instanceof Baton) {
-                cpt_baton++;
-            }
-            if (steve.getInventaire().get(i) instanceof PiocheBois) {
-                cpt_piocheB++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPierre) {
-                cpt_pierre++;
-            }
-        }
-        assertEquals(cpt_bois, 3);
-        assertEquals(cpt_planche, 3);
-        assertEquals(cpt_baton, 2);
-        assertEquals(cpt_piocheB, 1);
-        assertEquals(cpt_pierre, 4);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 2);
+        assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 4);
 
         // Steve fabrique une pioche en pierre :
         expertCraftPremier = null;
@@ -353,35 +249,10 @@ public class TestsIntegration {
 
         // Vérification de l'inventaire
         assertEquals(steve.getInventaire().getTaille(), 9);
-        cpt_bois = 0;
-        cpt_planche = 0;
-        cpt_baton = 0;
-        cpt_piocheB = 0;
-        cpt_pierre = 0;
-        for (int i = 0; i < steve.getInventaire().getTaille(); i++) {
-            if (steve.getInventaire().get(i) instanceof BlocBois) {
-                cpt_bois++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPlanche) {
-                cpt_planche++;
-            }
-            if (steve.getInventaire().get(i) instanceof Baton) {
-                cpt_baton++;
-            }
-            if (steve.getInventaire().get(i) instanceof PiocheBois) {
-                cpt_piocheB++;
-            }
-            if (steve.getInventaire().get(i) instanceof BlocPierre) {
-                cpt_pierre++;
-            }
-            if (steve.getInventaire().get(i) instanceof PiochePierre) {
-                cpt_piocheP++;
-            }
-        }
-        assertEquals(cpt_bois, 3);
-        assertEquals(cpt_planche, 3);
-        assertEquals(cpt_piocheB, 1);
-        assertEquals(cpt_piocheP, 1);
-        assertEquals(cpt_pierre, 1);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 3);
+        assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
+        assertEquals(steve.getNbrObjetDansInventaire(new PiochePierre()), 1);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 1);
     }
 }

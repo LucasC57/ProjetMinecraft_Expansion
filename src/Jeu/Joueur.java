@@ -182,6 +182,16 @@ public class Joueur {
         }
         this.monde = monde;
     }
+    public int getNbrObjetDansInventaire(Objets obj) throws InventoryException {
+        // Récupérer le nombre d'occurence de l'objet obj dans l'inventaire du joueur
+        int compteurOccu = 0;
+        for (int i = 0; i < this.getInventaire().getTaille(); i++) {
+            if (this.getInventaire().get(i).getClass() == obj.getClass()) {
+                compteurOccu++;
+            }
+        }
+        return compteurOccu;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

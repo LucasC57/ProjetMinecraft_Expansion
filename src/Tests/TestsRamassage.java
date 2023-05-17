@@ -83,8 +83,8 @@ public class TestsRamassage {
         assertEquals(list_case_monde[7][2].getTaille(), 0);
         inv = steve.getInventaire();
         assertEquals(inv.getTaille(), 2);
-        assertEquals(inv.get(0).getClass(), PiocheBois.class);
-        assertEquals(inv.get(1).getClass(), BlocPierre.class);
+        assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
+        assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 1);
     }
 
     @Test
