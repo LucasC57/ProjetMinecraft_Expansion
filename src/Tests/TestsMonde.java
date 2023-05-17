@@ -26,10 +26,9 @@ public class TestsMonde {
         String mondeTest = "projet_minecraft/src/Fichiers/MondeIncoherent.csv";
 
         // Pour vérifier l'assertion :
-        Throwable testMondeMalFormate = assertThrows(BlocInconnuException.class, () -> {
+        assertThrows(BlocInconnuException.class, () -> {
             Monde testMonde = new Monde(mondeTest);
         });
-        assertEquals(BlocInconnuException.class, testMondeMalFormate.getClass());
     }
 
     @Test

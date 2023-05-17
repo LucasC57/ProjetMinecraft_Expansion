@@ -47,16 +47,14 @@ public class TestsRamassage {
         // Planche
         Bloc planche = new BlocBois();
         assertEquals(list_case_monde[7][1].getTaille(), 0);
-        Throwable testPresencePlanche = assertThrows(BlocFluideException.class, () -> {
+        assertThrows(BlocFluideException.class, () -> {
             list_case_monde[7][1].addItemsAuSol(planche);
         });
-        assertEquals(BlocFluideException.class, testPresencePlanche.getClass());
         assertEquals(list_case_monde[7][1].getTaille(), 0);
         // Planches en 3,7
-        Throwable testPresencePlancheHerbe = assertThrows(BlocNonFluideException.class, () -> {
+        assertThrows(BlocNonFluideException.class, () -> {
             list_case_monde[7][3].addItemsAuSol(planche);
         });
-        assertEquals(BlocNonFluideException.class, testPresencePlancheHerbe.getClass());
         assertEquals(list_case_monde[7][3].getTaille(), 0);
     }
 
@@ -81,7 +79,7 @@ public class TestsRamassage {
         // Ramassage :
         Coord case_ramassage = new Coord(2, 7);
         assertEquals(list_case_monde[7][2].getTaille(), 2);
-        Ramassage ramasser_Steve = new Ramassage(steve, case_ramassage);
+        new Ramassage(steve, case_ramassage);
         assertEquals(list_case_monde[7][2].getTaille(), 0);
         inv = steve.getInventaire();
         assertEquals(inv.getTaille(), 2);
@@ -106,9 +104,8 @@ public class TestsRamassage {
         Bloc planches = new BlocBois();
         list_case_monde[8][2].addItemsAuSol(planches);
         Coord co_case = new Coord(2, 8);
-        Throwable testPresencePlanche = assertThrows(CaseNonVoisineException.class, () -> {
+        assertThrows(CaseNonVoisineException.class, () -> {
             Ramassage ramasser_Steve = new Ramassage(steve, co_case);
         });
-        assertEquals(CaseNonVoisineException.class, testPresencePlanche.getClass());
     }
 }

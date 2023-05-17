@@ -39,20 +39,18 @@ public class TestsMinage {
         assertEquals(tab_mondeMine[co_case.getY()][co_case.getX()].getContenu().getClass(), BlocBois.class);
         // Vérifier si la chaine de responsabilité est bien vide
         Expert finalExpertPremier1 = expertPremier;
-        Throwable testMinageCORVide = assertThrows(CORVideException.class, () -> {
+        assertThrows(CORVideException.class, () -> {
             Minage miner_case = new Minage(steve, co_case, finalExpertPremier1);
         });
-        assertEquals(CORVideException.class, testMinageCORVide.getClass());
         // Vérifier qu'après la case contient toujours du bois :
         assertEquals(tab_mondeMine[co_case.getY()][co_case.getX()].getContenu().getClass(), BlocBois.class);
         // Vérifier pour la case 5,9
         Coord case_non_voisine = new Coord(5, 9);
         expertPremier = new ExpertMain_Bois(expertPremier); // Pour éviter qu'il lance en priorité l'exception de CORVide
         Expert finalExpertPremier = expertPremier;
-        Throwable testMinageHorsVoisinage = assertThrows(CaseNonVoisineException.class, () -> {
+        assertThrows(CaseNonVoisineException.class, () -> {
             Minage miner_case = new Minage(steve, case_non_voisine, finalExpertPremier);
         });
-        assertEquals(CaseNonVoisineException.class, testMinageHorsVoisinage.getClass());
     }
     @Test
     public void testMinageMainNue() throws Exception {

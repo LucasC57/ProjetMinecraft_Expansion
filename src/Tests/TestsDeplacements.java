@@ -74,29 +74,24 @@ public class TestsDeplacements {
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());
         Coord nouvelleCo = new Coord(4, 0);
         steve.setCoordonnees_joueur(nouvelleCo);
-        Throwable testPresenceExc = assertThrows(CoordException.class, () -> {
+        assertThrows(CoordException.class, () -> {
             Deplacement depImpossible = new Deplacement(steve, "Gauche");
         });
-        assertEquals(CoordException.class, testPresenceExc.getClass());
-        Throwable testPresenceExcDiag = assertThrows(CoordException.class, () -> {
+        assertThrows(CoordException.class, () -> {
             Deplacement depImpossible = new Deplacement(steve, "Haut", "Gauche");
         });
-        assertEquals(CoordException.class, testPresenceExcDiag.getClass());
-
         // Placer steve en 9, 19
         nouvelleCo = new Coord(9, 19);
         steve.setCoordonnees_joueur(nouvelleCo);
-        Throwable testPresenceExcBas = assertThrows(DeplacementException.class, () -> {
+        assertThrows(DeplacementException.class, () -> {
             Deplacement depImpossible = new Deplacement(steve, "Bas");
         });
-        assertEquals(DeplacementException.class, testPresenceExcBas.getClass());
         // Placer steve en 1, 19
         nouvelleCo = new Coord(1, 19);
         steve.setCoordonnees_joueur(nouvelleCo);
-        Throwable testPresenceExcAutre = assertThrows(DeplacementException.class, () -> {
+        assertThrows(DeplacementException.class, () -> {
             Deplacement depImpossible = new Deplacement(steve, "Haut");
         });
-        assertEquals(DeplacementException.class, testPresenceExcAutre.getClass());
     }
     @Test
     public void testDeplacementsAvecObstacle() throws Exception {
@@ -107,30 +102,26 @@ public class TestsDeplacements {
         Inventory inventaire = new Inventory(inventaire_steve);
         Joueur steve = new Joueur("Steve", inventaire, new MainVide(), resp, monde_normal);
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());
-        Throwable testPresenceExcOBS = assertThrows(DeplacementException.class, () -> {
+        assertThrows(DeplacementException.class, () -> {
             Deplacement dep_obstacle = new Deplacement(steve, "Droite");
         });
-        assertEquals(DeplacementException.class, testPresenceExcOBS.getClass());
         // Steve en 3,4
         resp = new Coord(3, 4);
         steve.setCoordonnees_joueur(resp);
-        Throwable testPresenceExcOBSPieds = assertThrows(DeplacementException.class, () -> {
+        assertThrows(DeplacementException.class, () -> {
             Deplacement dep_obstacle = new Deplacement(steve, "Droite");
         });
-        assertEquals(DeplacementException.class, testPresenceExcOBSPieds.getClass());
         // Steve en 3,13
         resp = new Coord(3, 13);
         steve.setCoordonnees_joueur(resp);
-        Throwable testPresenceExcOBSPieds2 = assertThrows(DeplacementException.class, () -> {
+        assertThrows(DeplacementException.class, () -> {
             Deplacement dep_obstacle = new Deplacement(steve, "Gauche");
         });
-        assertEquals(DeplacementException.class, testPresenceExcOBSPieds2.getClass());
         // Grotte en 6,8
         resp = new Coord(6, 8);
         steve.setCoordonnees_joueur(resp);
-        Throwable testPresenceExcOBShaut = assertThrows(DeplacementException.class, () -> {
+        assertThrows(DeplacementException.class, () -> {
             Deplacement dep_obstacle = new Deplacement(steve, "Haut");
         });
-        assertEquals(DeplacementException.class, testPresenceExcOBShaut.getClass());
     }
 }

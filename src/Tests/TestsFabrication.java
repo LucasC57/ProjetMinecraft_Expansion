@@ -106,10 +106,9 @@ public class TestsFabrication {
         }
         // Steve fabrique une deuxième fois en n'ayant plus les matériaux nécessaire
         ExpertCraft finalExpertCraftPremier = expertCraftPremier;
-        Throwable testFabriqueDeux = assertThrows(InventoryException.class, () -> {
+        assertThrows(InventoryException.class, () -> {
             Fabrication steveFabriquerPlanchesImpossible = new Fabrication(steve, recettePlanches, finalExpertCraftPremier);
         });
-        assertEquals(InventoryException.class, testFabriqueDeux.getClass());
     }
     @Test
     public void testFabricationBaton() throws Exception {
@@ -164,10 +163,9 @@ public class TestsFabrication {
         }
         // Steve fabrique une deuxième fois n'ayant plus les matériaux nécessaire
         ExpertCraft finalExpertCraftPremier = expertCraftPremier;
-        Throwable testFabriqueDeux = assertThrows(InventoryException.class, () -> {
+        assertThrows(InventoryException.class, () -> {
             Fabrication steveFabriquerBatonsImpossible = new Fabrication(steve, recetteBatons, finalExpertCraftPremier);
         });
-        assertEquals(InventoryException.class, testFabriqueDeux.getClass());
     }
     @Test
     public void testFabricationPiocheBois() throws Exception {
@@ -233,10 +231,9 @@ public class TestsFabrication {
         }
         assertEquals(steve.getInventaire().get(0).getClass(), PiocheBois.class);
         ExpertCraft finalExperCraftPremier = experCraftPremier;
-        Throwable testFabriqueDeux = assertThrows(InventoryException.class, () -> {
+        assertThrows(InventoryException.class, () -> {
             Fabrication steveFabriquerPiocheBoisImpossible = new Fabrication(steve, recettePiocheBois, finalExperCraftPremier);
         });
-        assertEquals(InventoryException.class, testFabriqueDeux.getClass());
     }
     @Test
     public void testFabricationPiochePierre() throws Exception {
@@ -302,9 +299,8 @@ public class TestsFabrication {
         }
         assertEquals(steve.getInventaire().get(0).getClass(), PiochePierre.class);
         ExpertCraft finalExperCraftPremier = experCraftPremier;
-        Throwable testFabriqueDeux = assertThrows(InventoryException.class, () -> {
+        assertThrows(InventoryException.class, () -> {
             Fabrication steveFabriquerPiochePierreImpossible = new Fabrication(steve, recettePiochePierre, finalExperCraftPremier);
         });
-        assertEquals(InventoryException.class, testFabriqueDeux.getClass());
     }
 }
