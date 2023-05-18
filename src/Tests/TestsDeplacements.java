@@ -97,29 +97,29 @@ public class TestsDeplacements {
     public void testDeplacementsAvecObstacle() throws Exception {
         Monde monde_normal = new Monde(mondeTest);
 
-        Coord resp = new Coord(2, 6);
+        Coord co_Steve = new Coord(2, 6);
         ArrayList<Objets> inventaire_steve = null;
         Inventory inventaire = new Inventory(inventaire_steve);
-        Joueur steve = new Joueur("Steve", inventaire, new MainVide(), resp, monde_normal);
+        Joueur steve = new Joueur("Steve", inventaire, new MainVide(), co_Steve, monde_normal);
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());
         assertThrows(DeplacementException.class, () -> {
             steve.allerDroite();
         });
         // Steve en 3,4
-        resp = new Coord(3, 4);
-        steve.setCoordonnees_joueur(resp);
+        co_Steve = new Coord(3, 4);
+        steve.setCoordonnees_joueur(co_Steve);
         assertThrows(DeplacementException.class, () -> {
             steve.allerDroite();
         });
         // Steve en 3,13
-        resp = new Coord(3, 13);
-        steve.setCoordonnees_joueur(resp);
+        co_Steve = new Coord(3, 13);
+        steve.setCoordonnees_joueur(co_Steve);
         assertThrows(DeplacementException.class, () -> {
             steve.allerGauche();
         });
         // Grotte en 6,8
-        resp = new Coord(6, 8);
-        steve.setCoordonnees_joueur(resp);
+        co_Steve = new Coord(6, 8);
+        steve.setCoordonnees_joueur(co_Steve);
         assertThrows(DeplacementException.class, () -> {
             steve.allerHaut();
         });

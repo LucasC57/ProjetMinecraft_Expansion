@@ -49,18 +49,18 @@ public class TestsIntegration {
 
         // Steve mine les 3 blocs de bois
         Case[][] tab_monde = steve.getMonde().getTab_monde();
-        Coord bois1 = new Coord(4, 7);
-        Coord bois2 = new Coord(3, 7);
-        Coord bois3 = new Coord(2, 7);
+        Coord co_bois1 = new Coord(4, 7);
+        Coord co_bois2 = new Coord(3, 7);
+        Coord co_bois3 = new Coord(2, 7);
 
-        steve.minerBloc(expertPremier, bois3);
-        steve.ramasserItems(bois3);
+        steve.minerBloc(expertPremier, co_bois3);
+        steve.ramasserItems(co_bois3);
 
-        steve.minerBloc(expertPremier, bois2);
-        steve.ramasserItems(bois2);
+        steve.minerBloc(expertPremier, co_bois2);
+        steve.ramasserItems(co_bois2);
 
-        steve.minerBloc(expertPremier, bois1);
-        steve.ramasserItems(bois1);
+        steve.minerBloc(expertPremier, co_bois1);
+        steve.ramasserItems(co_bois1);
 
         // Vérifier qu'il a 3 blocs de bois dans son inventaire
         assertEquals(steve.getInventaire().getTaille(), 3);
@@ -173,8 +173,8 @@ public class TestsIntegration {
         assertEquals(co_valide, steve.getCoordonnees_joueur());
 
         // Steve mine les deux pierres de son voisinage et les ramasse
-        Coord pierre1 = new Coord(5, 12);
-        Coord pierre2 = new Coord(6, 12);
+        Coord co_pierre1 = new Coord(5, 12);
+        Coord co_pierre2 = new Coord(6, 12);
 
         steve.setMain((Item) steve.getInventaire().getListItems().get(8));
         assertEquals(steve.getMain().getClass(), PiocheBois.class);
@@ -183,10 +183,10 @@ public class TestsIntegration {
         expertPremier = null;
         expertPremier = new ExpertPiocheBois_Pierre(expertPremier);
 
-        steve.minerBloc(expertPremier, pierre1);
-        steve.ramasserItems(pierre1);
-        steve.minerBloc(expertPremier, pierre2);
-        steve.ramasserItems(pierre2);
+        steve.minerBloc(expertPremier, co_pierre1);
+        steve.ramasserItems(co_pierre1);
+        steve.minerBloc(expertPremier, co_pierre2);
+        steve.ramasserItems(co_pierre2);
 
         // Vérification de l'inventaire
         assertEquals(steve.getInventaire().getTaille(), 11);
@@ -202,15 +202,15 @@ public class TestsIntegration {
         assertEquals(steve.getCoordonnees_joueur(), verif_coord_trou);
 
         // Steve mine les 2 blocs de pierre qui se trouve à droite et les ramasse
-        Coord pierre_droite = new Coord(5, 11);
-        Coord pierre2_droite = new Coord(6, 11);
+        Coord co_pierre_droite = new Coord(5, 11);
+        Coord co_pierre2_droite = new Coord(6, 11);
 
-        steve.minerBloc(expertPremier, pierre_droite);
-        steve.minerBloc(expertPremier, pierre2_droite);
+        steve.minerBloc(expertPremier, co_pierre_droite);
+        steve.minerBloc(expertPremier, co_pierre2_droite);
 
         // Il ramasse les deux blocs
-        steve.ramasserItems(pierre_droite);
-        steve.ramasserItems(pierre2_droite);
+        steve.ramasserItems(co_pierre_droite);
+        steve.ramasserItems(co_pierre2_droite);
 
         // Vérification de l'inventaire :
         assertEquals(steve.getInventaire().getTaille(), 13);

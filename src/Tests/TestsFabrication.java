@@ -61,7 +61,6 @@ public class TestsFabrication {
         ArrayList<Objets> itemSol = new ArrayList<Objets>();
         Objets bois = new BlocBois();
         Case[][] list_case_monde = monde_create.getTab_monde();
-        list_case_monde[7][2].setItems_au_sol(itemSol);
         list_case_monde[7][2].addItemsAuSol(bois);
         assertEquals(list_case_monde[7][2].getTaille(), 1);
         steve.ramasserItems(co_bois);
@@ -109,7 +108,6 @@ public class TestsFabrication {
         ArrayList<Objets> itemSol = new ArrayList<Objets>();
         Objets planche = new BlocPlanche();
         Case[][] list_case_monde = monde_create.getTab_monde();
-        list_case_monde[7][2].setItems_au_sol(itemSol);
         list_case_monde[7][2].addItemsAuSol(planche);
         list_case_monde[7][2].addItemsAuSol(planche);
         assertEquals(list_case_monde[7][2].getTaille(), 2);
@@ -159,7 +157,6 @@ public class TestsFabrication {
         Objets planche = new BlocPlanche();
         Objets batons = new Baton();
         Case[][] list_case_monde = monde_create.getTab_monde();
-        list_case_monde[7][2].setItems_au_sol(itemSol);
         list_case_monde[7][2].addItemsAuSol(batons);
         list_case_monde[7][2].addItemsAuSol(batons);
         list_case_monde[7][2].addItemsAuSol(planche);
@@ -212,7 +209,6 @@ public class TestsFabrication {
         Objets pierre = new BlocPierre();
         Objets batons = new Baton();
         Case[][] list_case_monde = monde_create.getTab_monde();
-        list_case_monde[7][2].setItems_au_sol(itemSol);
         list_case_monde[7][2].addItemsAuSol(batons);
         list_case_monde[7][2].addItemsAuSol(batons);
         list_case_monde[7][2].addItemsAuSol(pierre);

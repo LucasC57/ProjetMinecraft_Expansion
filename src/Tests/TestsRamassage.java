@@ -29,7 +29,6 @@ public class TestsRamassage {
         assertEquals(steve.getCoordonnees_joueur(), coo_valide);
         ArrayList<Objets> itemSol = new ArrayList<Objets>();
         // Case 2,7
-        Coord case_co27 = new Coord(2, 7);
         Case[][] list_case_monde = monde_create.getTab_monde();
         list_case_monde[7][2].setItems_au_sol(itemSol); // Y, X
         assertTrue(list_case_monde[7][2].getItems_au_sol().isEmpty());
