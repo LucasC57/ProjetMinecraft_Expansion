@@ -34,8 +34,6 @@ public class TestsIntegration {
         // Possède rien :
         Item main = new MainVide();
         steve.setMain(main);
-        Inventory inv = new Inventory();
-        steve.setInventaire(inv);
         assertEquals(steve.getMain().getClass(), MainVide.class);
         assertEquals(steve.getInventaire().getTaille(), 0);
 

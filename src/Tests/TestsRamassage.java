@@ -62,9 +62,6 @@ public class TestsRamassage {
     public void testRamassageAvecSteve() throws Exception {
         Monde monde_create = new Monde(monde_test);
         Joueur steve = new Joueur(monde_create);
-        ArrayList<Objets> list_inv = new ArrayList<Objets>();
-        Inventory inv = new Inventory(list_inv);
-        steve.setInventaire(inv);
         Coord coo_valide = new Coord(2, 6);
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
         assertEquals(steve.getCoordonnees_joueur(), coo_valide);
@@ -81,8 +78,7 @@ public class TestsRamassage {
         assertEquals(list_case_monde[7][2].getTaille(), 2);
         steve.ramasserItems(case_ramassage);
         assertEquals(list_case_monde[7][2].getTaille(), 0);
-        inv = steve.getInventaire();
-        assertEquals(inv.getTaille(), 2);
+        assertEquals(steve.getInventaire().getTaille(), 2);
         assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
         assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 1);
     }
@@ -91,9 +87,6 @@ public class TestsRamassage {
     public void testRamassageImpossiblePlanches() throws Exception {
         Monde monde_create = new Monde(monde_test);
         Joueur steve = new Joueur(monde_create);
-        ArrayList<Objets> list_inv = new ArrayList<Objets>();
-        Inventory inv = new Inventory(list_inv);
-        steve.setInventaire(inv);
         Coord coo_valide = new Coord(2, 6);
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
         assertEquals(steve.getCoordonnees_joueur(), coo_valide);

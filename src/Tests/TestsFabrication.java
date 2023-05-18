@@ -27,9 +27,6 @@ public class TestsFabrication {
         assertEquals(co_valide, steve.getCoordonnees_joueur());
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
         // Remplir l'inventaire
-        ArrayList<Objets> inv_steve = new ArrayList<Objets>();
-        Inventory inv = new Inventory(inv_steve);
-        steve.setInventaire(inv);
         steve.getInventaire().addInventory(new BlocPlanche());
         steve.getInventaire().addInventory(new BlocPlanche());
         assertEquals(steve.getInventaire().getTaille(), 2);
