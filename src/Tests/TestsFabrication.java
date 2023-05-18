@@ -48,7 +48,7 @@ public class TestsFabrication {
         recetteBaton.add(new BlocPlanche());
         recetteBaton.add(new BlocAir());
         assertEquals(recetteBaton.size(), 9);
-        Fabrication fabriTest = new Fabrication(steve, recetteBaton, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recetteBaton);
         assertEquals(steve.getInventaire().getTaille(), 4);
         assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 4);
     }
@@ -71,7 +71,7 @@ public class TestsFabrication {
         list_case_monde[7][2].setItems_au_sol(itemSol);
         list_case_monde[7][2].addItemsAuSol(bois);
         assertEquals(list_case_monde[7][2].getTaille(), 1);
-        Ramassage ramasser_bois = new Ramassage(steve, co_bois);
+        steve.ramasserItems(co_bois);
         assertEquals(steve.getInventaire().getTaille(), 1);
         assertEquals(steve.getNbrObjetDansInventaire(new BlocBois()), 1);
 
@@ -93,13 +93,13 @@ public class TestsFabrication {
         assertEquals(recettePlanches.size(), 9);
 
         // Steve fabrique selon cette recette :
-        Fabrication steveFabriquerPlanches = new Fabrication(steve, recettePlanches, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recettePlanches);
         assertEquals(steve.getInventaire().getTaille(), 4);
         assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 4);
         // Steve fabrique une deuxième fois en n'ayant plus les matériaux nécessaire
         ExpertCraft finalExpertCraftPremier = expertCraftPremier;
         assertThrows(InventoryException.class, () -> {
-            Fabrication steveFabriquerPlanchesImpossible = new Fabrication(steve, recettePlanches, finalExpertCraftPremier);
+            steve.effectuerRecette(finalExpertCraftPremier, recettePlanches);
         });
     }
     @Test
@@ -122,7 +122,7 @@ public class TestsFabrication {
         list_case_monde[7][2].addItemsAuSol(planche);
         list_case_monde[7][2].addItemsAuSol(planche);
         assertEquals(list_case_monde[7][2].getTaille(), 2);
-        Ramassage ramasser_bois = new Ramassage(steve, co_planche);
+        steve.ramasserItems(co_planche);
         assertEquals(steve.getInventaire().getTaille(), 2);
         assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 2);
 
@@ -144,13 +144,13 @@ public class TestsFabrication {
         assertEquals(recetteBatons.size(), 9);
 
         // Steve fabrique selon cette recette :
-        Fabrication steveFabriquerBatons = new Fabrication(steve, recetteBatons, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recetteBatons);
         assertEquals(steve.getInventaire().getTaille(), 4);
         assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 4);
         // Steve fabrique une deuxième fois n'ayant plus les matériaux nécessaire
         ExpertCraft finalExpertCraftPremier = expertCraftPremier;
         assertThrows(InventoryException.class, () -> {
-            Fabrication steveFabriquerBatonsImpossible = new Fabrication(steve, recetteBatons, finalExpertCraftPremier);
+            steve.effectuerRecette(finalExpertCraftPremier, recetteBatons);
         });
     }
     @Test
@@ -177,7 +177,7 @@ public class TestsFabrication {
         list_case_monde[7][2].addItemsAuSol(planche);
         list_case_monde[7][2].addItemsAuSol(planche);
         assertEquals(list_case_monde[7][2].getTaille(), 5);
-        Ramassage ramasser_bois = new Ramassage(steve, co_planche);
+        steve.ramasserItems(co_planche);
         assertEquals(steve.getInventaire().getTaille(), 5);
         assertEquals(steve.getNbrObjetDansInventaire(new BlocPlanche()), 3);
         assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 2);
@@ -200,12 +200,12 @@ public class TestsFabrication {
         assertEquals(recettePiocheBois.size(), 9);
 
         // Steve fabrique selon cette recette :
-        Fabrication steveFabriquerPiocheBois = new Fabrication(steve, recettePiocheBois, experCraftPremier);
+        steve.effectuerRecette(experCraftPremier, recettePiocheBois);
         assertEquals(steve.getInventaire().getTaille(), 1);
         assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
         ExpertCraft finalExperCraftPremier = experCraftPremier;
         assertThrows(InventoryException.class, () -> {
-            Fabrication steveFabriquerPiocheBoisImpossible = new Fabrication(steve, recettePiocheBois, finalExperCraftPremier);
+            steve.effectuerRecette(finalExperCraftPremier, recettePiocheBois);
         });
     }
     @Test
@@ -232,7 +232,7 @@ public class TestsFabrication {
         list_case_monde[7][2].addItemsAuSol(pierre);
         list_case_monde[7][2].addItemsAuSol(pierre);
         assertEquals(list_case_monde[7][2].getTaille(), 5);
-        Ramassage ramasser_items = new Ramassage(steve, co_items);
+        steve.ramasserItems(co_items);
         assertEquals(steve.getInventaire().getTaille(), 5);
         assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 3);
         assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 2);
@@ -255,12 +255,12 @@ public class TestsFabrication {
         assertEquals(recettePiochePierre.size(), 9);
 
         // Steve fabrique selon cette recette :
-        Fabrication steveFabriquerPierreBois = new Fabrication(steve, recettePiochePierre, experCraftPremier);
+        steve.effectuerRecette(experCraftPremier, recettePiochePierre);
         assertEquals(steve.getInventaire().getTaille(), 1);
         assertEquals(steve.getNbrObjetDansInventaire(new PiochePierre()), 1);
         ExpertCraft finalExperCraftPremier = experCraftPremier;
         assertThrows(InventoryException.class, () -> {
-            Fabrication steveFabriquerPiochePierreImpossible = new Fabrication(steve, recettePiochePierre, finalExperCraftPremier);
+            steve.effectuerRecette(finalExperCraftPremier, recettePiochePierre);
         });
     }
 }

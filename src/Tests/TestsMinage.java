@@ -40,7 +40,7 @@ public class TestsMinage {
         // Vérifier si la chaine de responsabilité est bien vide
         Expert finalExpertPremier1 = expertPremier;
         assertThrows(CORVideException.class, () -> {
-            Minage miner_case = new Minage(steve, co_case, finalExpertPremier1);
+            steve.minerBloc(finalExpertPremier1, co_case);
         });
         // Vérifier qu'après la case contient toujours du bois :
         assertEquals(tab_mondeMine[co_case.getY()][co_case.getX()].getContenu().getClass(), BlocBois.class);
@@ -49,7 +49,7 @@ public class TestsMinage {
         expertPremier = new ExpertMain_Bois(expertPremier); // Pour éviter qu'il lance en priorité l'exception de CORVide
         Expert finalExpertPremier = expertPremier;
         assertThrows(CaseNonVoisineException.class, () -> {
-            Minage miner_case = new Minage(steve, case_non_voisine, finalExpertPremier);
+            steve.minerBloc(finalExpertPremier, case_non_voisine);
         });
     }
     @Test
@@ -71,20 +71,19 @@ public class TestsMinage {
         Coord co_bois = new Coord(4, 7);
         Bloc buche = new BlocBois();
         tab_mondeMine[co_bois.getY()][co_bois.getX()].setContenu(buche);
-        Minage miner_case = new Minage(steve, co_bois, expertPremier);
+        steve.minerBloc(expertPremier, co_bois);
         assertEquals(tab_mondeMine[co_bois.getY()][co_bois.getX()].getContenu().getClass(), BlocAir.class);
         assertEquals(tab_mondeMine[co_bois.getY()][co_bois.getX()].getTaille(), 1);
         assertEquals(tab_mondeMine[co_bois.getY()][co_bois.getX()].get(0).getClass(), BlocBois.class);
 
         // Steve mine un bloc de pierre alors qu'il ne peut pas
         Coord case_pierre = new Coord(5, 5);
-        miner_case.setCase_concerne(case_pierre);
-        miner_case.minerBloc(expertPremier);
+        steve.minerBloc(expertPremier, case_pierre);
         assertEquals(tab_mondeMine[case_pierre.getY()][case_pierre.getX()].getContenu().getClass(), BlocPierre.class);
 
         // Mettre à jour la COR pour qu'il puisse miner de la pierre à main nue
         expertPremier = new ExpertMain_Pierre(expertPremier);
-        miner_case.minerBloc(expertPremier);
+        steve.minerBloc(expertPremier, case_pierre);
         assertEquals(tab_mondeMine[case_pierre.getY()][case_pierre.getX()].getContenu().getClass(), BlocAir.class);
         assertEquals(tab_mondeMine[case_pierre.getY()][case_pierre.getX()].getTaille(), 0);
     }
@@ -110,7 +109,7 @@ public class TestsMinage {
         Expert expertPremier = null;
         expertPremier = new ExpertPiochePierre_Bois(expertPremier);
         Coord co_bois = new Coord(4, 7);
-        Minage miner_case = new Minage(steve, co_bois, expertPremier);
+        steve.minerBloc(expertPremier, co_bois);
         assertEquals(tab_mondeMinage[co_bois.getY()][co_bois.getX()].getContenu().getClass(), BlocAir.class);
         assertEquals(tab_mondeMinage[co_bois.getY()][co_bois.getX()].getTaille(), 1);
         assertEquals(tab_mondeMinage[co_bois.getY()][co_bois.getX()].get(0).getClass(), BlocBois.class);
@@ -118,8 +117,7 @@ public class TestsMinage {
         // Mettre à jour la COR pour qu'il puisse miner de la pierre avec une pioche
         expertPremier = new ExpertPiochePierre_Pierre(expertPremier);
         Coord co_autreCase = new Coord(5, 5);
-        miner_case.setCase_concerne(co_autreCase);
-        miner_case.minerBloc(expertPremier);
+        steve.minerBloc(expertPremier, co_autreCase);
         assertEquals(tab_mondeMinage[co_autreCase.getY()][co_autreCase.getX()].getContenu().getClass(), BlocAir.class);
         assertEquals(tab_mondeMinage[co_autreCase.getY()][co_autreCase.getX()].getTaille(), 1);
         assertEquals(tab_mondeMinage[co_autreCase.getY()][co_autreCase.getX()].get(0).getClass(), BlocPierre.class);
@@ -130,9 +128,7 @@ public class TestsMinage {
 
         // Minage de la case 5,6
         Coord co_pierre = new Coord(5, 6);
-        miner_case.setJoueur_Miner(steve);
-        miner_case.setCase_concerne(co_pierre);
-        miner_case.minerBloc(expertPremier);
+        steve.minerBloc(expertPremier, co_pierre);
         assertEquals(tab_mondeMinage[co_pierre.getY()][co_pierre.getX()].getContenu().getClass(), BlocAir.class);
         assertEquals(tab_mondeMinage[co_pierre.getY()][co_pierre.getX()].getTaille(), 0);
     }

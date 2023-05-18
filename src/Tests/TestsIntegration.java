@@ -48,7 +48,7 @@ public class TestsIntegration {
         expertCraftPremier = new ExpertCraft_Bois_Planches(expertCraftPremier);
 
         // Steve se déplace vers la droite
-        Deplacement dep_droite = new Deplacement(steve, "Droite");
+        steve.allerDroite();
         assertEquals(steve.getCoordonnees_joueur().getY(), 6);
 
         // Steve mine les 3 blocs de bois
@@ -57,14 +57,14 @@ public class TestsIntegration {
         Coord bois2 = new Coord(3, 7);
         Coord bois3 = new Coord(2, 7);
 
-        Minage miner_bois1 = new Minage(steve, bois3, expertPremier);
-        Ramassage ram_bois1 = new Ramassage(steve, bois3);
+        steve.minerBloc(expertPremier, bois3);
+        steve.ramasserItems(bois3);
 
-        Minage miner_bois2 = new Minage(steve, bois2, expertPremier);
-        Ramassage ram_bois2 = new Ramassage(steve, bois2);
+        steve.minerBloc(expertPremier, bois2);
+        steve.ramasserItems(bois2);
 
-        Minage miner_bois3 = new Minage(steve, bois1, expertPremier);
-        Ramassage ram_bois3 = new Ramassage(steve, bois1);
+        steve.minerBloc(expertPremier, bois1);
+        steve.ramasserItems(bois1);
 
         // Vérifier qu'il a 3 blocs de bois dans son inventaire
         assertEquals(steve.getInventaire().getTaille(), 3);
@@ -83,7 +83,7 @@ public class TestsIntegration {
         recette_planches.add(new BlocAir());
         recette_planches.add(new BlocAir());
 
-        Fabrication fabrique_planche = new Fabrication(steve, recette_planches, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recette_planches);
 
         // Vérification de l'inventaire
         assertEquals(steve.getInventaire().getTaille(), 6);
@@ -105,7 +105,7 @@ public class TestsIntegration {
         // COR :
         expertCraftPremier = null;
         expertCraftPremier = new ExpertCraft_Planches_Baton(expertCraftPremier);
-        Fabrication batons = new Fabrication(steve, recette_batons, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recette_batons);
 
         // Vérification inventaire
         assertEquals(steve.getInventaire().getTaille(), 8);
@@ -114,14 +114,14 @@ public class TestsIntegration {
         assertEquals(steve.getNbrObjetDansInventaire(new Baton()), 4);
 
         // Steve se déplace au 2eme arbre
-        dep_droite.allerDroite();
-        dep_droite.allerDroite();
-        dep_droite.allerDroite();
-        dep_droite.allerDroite();
-        dep_droite.allerDroite();
-        dep_droite.allerDroite();
-        dep_droite.allerBasDroite();
-        dep_droite.allerDroite();
+        steve.allerDroite();
+        steve.allerDroite();
+        steve.allerDroite();
+        steve.allerDroite();
+        steve.allerDroite();
+        steve.allerDroite();
+        steve.allerBasDroite();
+        steve.allerDroite();
 
         // Vérification coord steve
         Coord co_steve = new Coord(5, 14);
@@ -130,13 +130,11 @@ public class TestsIntegration {
         Coord bois2em_1 = new Coord(5, 15);
         Coord bois2em_2 = new Coord(4, 15);
 
-        Minage minerbois2em1 = new Minage(steve, bois2em_2, expertPremier);
-        minerbois2em1.setCase_concerne(bois2em_1);
-        minerbois2em1.minerBloc(expertPremier);
+        steve.minerBloc(expertPremier, bois2em_2);
+        steve.minerBloc(expertPremier, bois2em_1);
 
-        Ramassage ramasser_bois = new Ramassage(steve, bois2em_1);
-        ramasser_bois.setCoord_case(bois2em_2);
-        ramasser_bois.ramasserItems();
+        steve.ramasserItems(bois2em_1);
+        steve.ramasserItems(bois2em_2);
 
         // Vérification inventaire
         assertEquals(steve.getInventaire().getTaille(), 10);
@@ -148,7 +146,7 @@ public class TestsIntegration {
         // Il faut fabriquer en plus des planches
         expertCraftPremier = null;
         expertCraftPremier = new ExpertCraft_Bois_Planches(expertCraftPremier);
-        Fabrication fabriquerPlanches = new Fabrication(steve, recette_planches, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recette_planches);
 
         // Fabrication de la pioche en bois :
         ArrayList<Objets> recette_pioche_bois = new ArrayList<Objets>();
@@ -164,7 +162,7 @@ public class TestsIntegration {
 
         expertCraftPremier = null;
         expertCraftPremier = new ExpertCraft_PiocheBois(expertCraftPremier);
-        Fabrication pioche_bois = new Fabrication(steve, recette_pioche_bois, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recette_pioche_bois);
 
         // Vérification inventaire
         assertEquals(steve.getInventaire().getTaille(), 9);
@@ -174,7 +172,7 @@ public class TestsIntegration {
         assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
 
         // Steve va vers la zone en pierre
-        Deplacement dep_gauche = new Deplacement(steve, "Gauche");
+        steve.allerGauche();
         Coord co_valide = new Coord(5, 13);
         assertEquals(co_valide, steve.getCoordonnees_joueur());
 
@@ -189,12 +187,10 @@ public class TestsIntegration {
         expertPremier = null;
         expertPremier = new ExpertPiocheBois_Pierre(expertPremier);
 
-        Minage miner_pierre = new Minage(steve, pierre1, expertPremier);
-        Ramassage ramasser_pierre = new Ramassage(steve, pierre1);
-        miner_pierre.setCase_concerne(pierre2);
-        miner_pierre.minerBloc(expertPremier);
-        ramasser_pierre.setCoord_case(pierre2);
-        ramasser_pierre.ramasserItems();
+        steve.minerBloc(expertPremier, pierre1);
+        steve.ramasserItems(pierre1);
+        steve.minerBloc(expertPremier, pierre2);
+        steve.ramasserItems(pierre2);
 
         // Vérification de l'inventaire
         assertEquals(steve.getInventaire().getTaille(), 11);
@@ -205,7 +201,7 @@ public class TestsIntegration {
         assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 2);
 
         // Steve descend dans le trou qu'il vient de miner :
-        Deplacement aller_dans_trou = new Deplacement(steve, "Bas", "Gauche");
+        steve.allerBasGauche();
         Coord verif_coord_trou = new Coord(6, 12);
         assertEquals(steve.getCoordonnees_joueur(), verif_coord_trou);
 
@@ -213,14 +209,12 @@ public class TestsIntegration {
         Coord pierre_droite = new Coord(5, 11);
         Coord pierre2_droite = new Coord(6, 11);
 
-        Minage miner_bloc_droite = new Minage(steve, pierre_droite, expertPremier);
-        miner_bloc_droite.setCase_concerne(pierre2_droite);
-        miner_bloc_droite.minerBloc(expertPremier);
+        steve.minerBloc(expertPremier, pierre_droite);
+        steve.minerBloc(expertPremier, pierre2_droite);
 
         // Il ramasse les deux blocs
-        Ramassage ramasser_pierre_droite = new Ramassage(steve, pierre_droite);
-        ramasser_pierre_droite.setCoord_case(pierre2_droite);
-        ramasser_pierre_droite.ramasserItems();
+        steve.ramasserItems(pierre_droite);
+        steve.ramasserItems(pierre2_droite);
 
         // Vérification de l'inventaire :
         assertEquals(steve.getInventaire().getTaille(), 13);
@@ -245,7 +239,7 @@ public class TestsIntegration {
         recette_pioche_pierre.add(new Baton());
         recette_pioche_pierre.add(new BlocAir());
 
-        Fabrication fabriquer_pioche_pierre = new Fabrication(steve, recette_pioche_pierre, expertCraftPremier);
+        steve.effectuerRecette(expertCraftPremier, recette_pioche_pierre);
 
         // Vérification de l'inventaire
         assertEquals(steve.getInventaire().getTaille(), 9);

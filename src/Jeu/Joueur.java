@@ -1,9 +1,13 @@
 package Jeu;
 
+import Jeu.Bloc.BlocAir;
+import Jeu.Experts.ExpertCraft.ExpertCraft;
+import Jeu.Experts.ExpertMinage.Expert;
 import Jeu.Item.Item;
 import Exception.*;
 import Jeu.Item.MainVide;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -192,6 +196,268 @@ public class Joueur {
         }
         return compteurOccu;
     }
+
+    // Ramassage :
+
+    public boolean blocDansVoisinageJoueurPourRamassage(Coord coordCaseRamassage) {
+        boolean voisin = false;
+        int x_case = coordCaseRamassage.getX();
+        int y_case = coordCaseRamassage.getY();
+        int x_joueur = this.getCoordonnees_joueur().getX();
+        int y_joueur = this.getCoordonnees_joueur().getY();
+
+        // Voisinage proche :
+        if ((x_case <= x_joueur - 1 || x_case <= x_joueur + 1) && (y_case <= y_joueur - 1 || y_case <= y_joueur + 1)) {
+            voisin = true;
+        }
+        return voisin;
+    }
+    public void ramasserItems(Coord caseRammassage) throws ListObjetsInexistantException, CaseNonVoisineException {
+        // On va récupérer le tab_monde
+        Joueur joueur_concerne = this;
+        Case[][] liste_cases = joueur_concerne.getMonde().getTab_monde();
+
+        // Le joueur peut ramasser les objets dans sa case
+        if (caseRammassage.equals(joueur_concerne.getCoordonnees_joueur())) {
+            // On va récupérer le contenu de la case en question et ajouter ce contenu dans l'inventaire du Joueur
+            for (int i = 0; i < liste_cases[caseRammassage.getY()][caseRammassage.getX()].getTaille(); i++) {
+                Objets obj_case = liste_cases[joueur_concerne.getCoordonnees_joueur().getY()][joueur_concerne.getCoordonnees_joueur().getX()].getItems_au_sol().get(i);
+                // On ajoute dans son inventaire
+                joueur_concerne.getInventaire().addInventory(obj_case);
+                // On n'oublie pas de vider la case
+                liste_cases[joueur_concerne.getCoordonnees_joueur().getY()][joueur_concerne.getCoordonnees_joueur().getX()].removeObjets(i);
+            }
+        } else {
+            // Si c'est bien une case voisine :
+            if (blocDansVoisinageJoueurPourRamassage(caseRammassage)) {
+                for (int i = 0; i < liste_cases[caseRammassage.getY()][caseRammassage.getX()].getTaille(); i++) {
+                    Objets obj_case = liste_cases[caseRammassage.getY()][caseRammassage.getX()].getItems_au_sol().get(i);
+                    // On ajoute dans son inventaire
+                    joueur_concerne.getInventaire().addInventory(obj_case);
+                }
+                // On n'oublie pas de supprimer tous les objets qui se trouve dans la case :
+                ArrayList<Objets> listm = liste_cases[caseRammassage.getY()][caseRammassage.getX()].getItems_au_sol();
+                int nb_objets_a_supprimer = listm.size(); // nombre d'objets à supprimer
+                int objets_supprimes = 0; // nombre d'objets déjà supprimés
+                while (objets_supprimes < nb_objets_a_supprimer && !listm.isEmpty()) {
+                    Objets obj_case = listm.get(0);
+                    liste_cases[caseRammassage.getY()][caseRammassage.getX()].removeObjets(0);
+                    objets_supprimes++;
+                }
+            } else {
+                throw new CaseNonVoisineException();
+            }
+        }
+
+    }
+
+    // Minage :
+
+    public boolean blocDansVoisinageJoueurPourMinage(Coord coordCaseMinage) {
+        boolean voisin = false;
+        int x_case = coordCaseMinage.getX();
+        int y_case = coordCaseMinage.getY();
+        int x_joueur = this.getCoordonnees_joueur().getX();
+        int y_joueur = this.getCoordonnees_joueur().getY();
+
+        // Voisinage proche :
+        if ((x_case <= x_joueur - 1 || x_case <= x_joueur + 1) && (y_case <= y_joueur - 1 || y_case <= y_joueur + 1)) {
+            voisin = true;
+        }
+
+        // Voisinage lointain (2 Blocs) :
+
+        if ((x_case == x_joueur - 3 || x_case == x_joueur + 2) && (y_case == y_joueur - 2 || y_case == y_joueur + 2)
+                || ((x_case == x_joueur - 3) && (y_case >= y_joueur - 1 && y_case <= y_joueur + 1)) ||
+                ((x_case == x_joueur + 2) && (y_case >= y_joueur - 1 && y_case <= y_joueur + 1)) ||
+                ((y_case == y_joueur - 2) && (x_case >= x_joueur - 2 && x_case <= x_joueur + 2)) ||
+                ((y_case == y_joueur + 2) && (x_case >= x_joueur - 2 && x_case <= x_joueur + 2))) {
+            // 8 Cas :
+            // Cas 1 : Plage horizontale haut
+            if (x_case == x_joueur - 3 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
+                if (this.getMonde().getTab_monde()[y_case][x_case + 1].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Cas 2 : Plage horizontale bas
+            if (x_case == x_joueur + 2 && (y_case != y_joueur + 2 && y_case != y_joueur - 2)) {
+                if (this.getMonde().getTab_monde()[y_case][x_case - 1].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Cas 3 : Plage verticale gauche
+            if (y_case == y_joueur - 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
+                if (this.getMonde().getTab_monde()[y_case + 1][x_case].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Cas 4 : Plage verticale droite
+            if (y_case == y_joueur + 2 && (x_case != x_joueur - 3 && x_case != x_joueur + 2)) {
+                if (this.getMonde().getTab_monde()[y_case - 1][x_case].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coins :
+            // Coin haut gauche :
+            if (x_case == x_joueur - 3 && y_case == y_joueur - 2) {
+                if (this.getMonde().getTab_monde()[y_case + 1][x_case + 1].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coin haut droit :
+            if (x_case == x_joueur - 3 && y_case == y_joueur + 2) {
+                if (this.getMonde().getTab_monde()[y_case - 1][x_case + 1].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coin bas gauche :
+            if (x_case == x_joueur + 2 && y_case == y_joueur - 2) {
+                if (this.getMonde().getTab_monde()[y_case + 1][x_case - 1].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+            // Coin bas droit :
+            if (x_case == x_joueur + 2 && y_case == y_joueur + 2) {
+                if (this.getMonde().getTab_monde()[y_case - 1][x_case - 1].getContenu().isFluidite()) {
+                    voisin = true;
+                } else {
+                    voisin = false;
+                }
+            }
+        }
+        return voisin;
+    }
+
+    public void minerBloc(Expert expert, Coord caseMinage) throws Exception {
+        if (expert != null) {
+            // Travail avec la COR :
+            Objets mainJoueur = this.getMain();
+            Case[][] caseViseParJoueur = this.getMonde().getTab_monde();
+            Objets blocVise = caseViseParJoueur[caseMinage.getY()][caseMinage.getX()].getContenu();
+
+            // Le résultat de expert :
+            try {
+                // On défini le voisinage proche pour le minage
+                // Si c'est bien dans le voisinage du joueur :
+                if (blocDansVoisinageJoueurPourMinage(caseMinage)) {
+                    Objets res = expert.expertiser(mainJoueur, blocVise);
+                    // On doit remplacer le bloc par de l'air s'il peut bien miner
+                    if (res != null) {
+                        this.getMonde().getTab_monde()[caseMinage.getY()][caseMinage.getX()].setContenu(new BlocAir());
+                        // On doit aussi ajouter le bloc en question dans la liste des items au sol de la case
+                        this.getMonde().getTab_monde()[caseMinage.getY()][caseMinage.getX()].addItemsAuSol(res);
+                    } else {
+                        // Le bloc est que même cassé mais rien de drop
+                        this.getMonde().getTab_monde()[caseMinage.getY()][caseMinage.getX()].setContenu(new BlocAir());
+                    }
+                } else {
+                    throw new CaseNonVoisineException();
+                }
+            } catch (ExpertManquantException e) {}
+        } else {
+            throw new CORVideException();
+        }
+    }
+
+    // Fabrication :
+
+    public void effectuerRecette(ExpertCraft expertRecette, ArrayList<Objets> recette) throws Exception {
+        if (expertRecette != null) {
+            ArrayList<Objets> inv_Joueur = this.getInventaire().getListItems();
+            ArrayList<Objets> objetsNoAir = new ArrayList<Objets>();
+            // Avant tout de chose, on va vérifier que le joueur possède les éléments qui se trouve dans sa recette donnée
+            for (int i = 0; i < recette.size(); i++) {
+                // On va éviter toute comparaison avec les blocs d'air
+                if (!(recette.get(i) instanceof BlocAir)) {
+                    objetsNoAir.add(recette.get(i));
+                }
+            }
+            // Première vérification :
+            if (this.getInventaire().getTaille() < objetsNoAir.size()) {
+                throw new InventoryException();
+            }
+            // Il y a le même nombre d'éléments, mais maintenant il faut vérifier si les éléments de objetsNoAir sont dans son inventaire
+            for (Objets obj : objetsNoAir) {
+                if (!inv_Joueur.contains(obj)) {
+                    throw new InventoryException();
+                }
+            }
+            // Le Joueur à bien tous les éléments dans son inventaire
+            // Le travail de l'expert
+            try {
+                ArrayList<Objets> res_recette = expertRecette.expertiserCraft(recette);
+                // On doit supprimer de l'inventaire du Joueur les éléments dans la recette :
+                for (int i = 0; i < objetsNoAir.size(); i++) {
+                    inv_Joueur.remove(objetsNoAir.get(i));
+                }
+                // On doit parcourir l'arraylist et ajouter chaque élément de celle-ci dans l'inventaire du Joueur
+                for (int j = 0; j < res_recette.size(); j++) {
+                    this.getInventaire().addInventory(res_recette.get(j));
+                }
+            } catch (ExpertManquantException e) {
+                System.out.printf("\nIl n'y a pas d'expert pour cette recette : %s", recette);
+            }
+        } else {
+            throw new CORVideException();
+        }
+    }
+
+    // Deplacement :
+
+    public void allerDroite() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX(), this.getCoordonnees_joueur().getY()+1);
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
+    public void allerGauche() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX(), this.getCoordonnees_joueur().getY()-1);
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
+    public void allerHaut() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()-1, this.getCoordonnees_joueur().getY());
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
+    public void allerBas() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY());
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
+    public void allerHautGauche() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()-1, this.getCoordonnees_joueur().getY()-1);
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
+    public void allerHautDroite() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()-1, this.getCoordonnees_joueur().getY()+1);
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
+    public void allerBasGauche() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY()-1);
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
+    public void allerBasDroite() throws CoordException, PlayerArgumentException, DeplacementException {
+        Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY()+1);
+        this.setCoordonnees_joueur(nouvelleCoordonnees);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

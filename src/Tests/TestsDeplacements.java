@@ -18,22 +18,22 @@ public class TestsDeplacements {
 
         Joueur steve = new Joueur(monde_normal);
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());
-        Deplacement dep = new Deplacement(steve, "Gauche");
+        steve.allerGauche();
         Coord nouvelleCo = new Coord(steve.getCoordonnees_joueur().getX(), steve.getCoordonnees_joueur().getY());
         Coord coValide = new Coord(2, 5);
         assertEquals(nouvelleCo, coValide);
         // Aller à droite
-        dep.allerDroite();
+        steve.allerDroite();
         nouvelleCo = new Coord(steve.getCoordonnees_joueur().getX(), steve.getCoordonnees_joueur().getY());
         coValide = new Coord(2, 6);
         assertEquals(nouvelleCo, coValide);
         // Aller en haut
-        dep.allerHaut();
+        steve.allerHaut();
         nouvelleCo = new Coord(steve.getCoordonnees_joueur().getX(), steve.getCoordonnees_joueur().getY());
         coValide = new Coord(1, 6);
         assertEquals(nouvelleCo, coValide);
         // Aller en bas
-        dep.allerBas();
+        steve.allerBas();
         nouvelleCo = new Coord(steve.getCoordonnees_joueur().getX(), steve.getCoordonnees_joueur().getY());
         coValide = new Coord(2, 6);
         assertEquals(nouvelleCo, coValide);
@@ -46,22 +46,22 @@ public class TestsDeplacements {
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());
         Coord nouvelleCo = new Coord(4, 16);
         steve.setCoordonnees_joueur(nouvelleCo);
-        Deplacement dep_diago = new Deplacement(steve, "Haut", "Gauche");
+        steve.allerHautGauche();
         Coord coValide = new Coord(3, 15);
         Coord coJoueur = steve.getCoordonnees_joueur();
         assertEquals(coValide, coJoueur);
         // Aller Bas Droit
-        dep_diago.allerBasDroite();
+        steve.allerBasDroite();
         coValide = new Coord(4, 16);
         coJoueur = steve.getCoordonnees_joueur();
         assertEquals(coValide, coJoueur);
         // Aller haut Droit
-        dep_diago.allerHautDroite();
+        steve.allerHautDroite();
         coValide = new Coord(3, 17);
         coJoueur = steve.getCoordonnees_joueur();
         assertEquals(coValide, coJoueur);
         // Aller Bas gauche
-        dep_diago.allerBasGauche();
+        steve.allerBasGauche();
         coValide = new Coord(4, 16);
         coJoueur = steve.getCoordonnees_joueur();
         assertEquals(coValide, coJoueur);
@@ -75,22 +75,22 @@ public class TestsDeplacements {
         Coord nouvelleCo = new Coord(4, 0);
         steve.setCoordonnees_joueur(nouvelleCo);
         assertThrows(CoordException.class, () -> {
-            Deplacement depImpossible = new Deplacement(steve, "Gauche");
+            steve.allerGauche();
         });
         assertThrows(CoordException.class, () -> {
-            Deplacement depImpossible = new Deplacement(steve, "Haut", "Gauche");
+            steve.allerHautGauche();
         });
         // Placer steve en 9, 19
         nouvelleCo = new Coord(9, 19);
         steve.setCoordonnees_joueur(nouvelleCo);
         assertThrows(DeplacementException.class, () -> {
-            Deplacement depImpossible = new Deplacement(steve, "Bas");
+            steve.allerBas();
         });
         // Placer steve en 1, 19
         nouvelleCo = new Coord(1, 19);
         steve.setCoordonnees_joueur(nouvelleCo);
         assertThrows(DeplacementException.class, () -> {
-            Deplacement depImpossible = new Deplacement(steve, "Haut");
+            steve.allerHaut();
         });
     }
     @Test
@@ -103,25 +103,25 @@ public class TestsDeplacements {
         Joueur steve = new Joueur("Steve", inventaire, new MainVide(), resp, monde_normal);
         assertEquals(steve.getCoordonnees_joueur(), monde_normal.getPoint_respawn());
         assertThrows(DeplacementException.class, () -> {
-            Deplacement dep_obstacle = new Deplacement(steve, "Droite");
+            steve.allerDroite();
         });
         // Steve en 3,4
         resp = new Coord(3, 4);
         steve.setCoordonnees_joueur(resp);
         assertThrows(DeplacementException.class, () -> {
-            Deplacement dep_obstacle = new Deplacement(steve, "Droite");
+            steve.allerDroite();
         });
         // Steve en 3,13
         resp = new Coord(3, 13);
         steve.setCoordonnees_joueur(resp);
         assertThrows(DeplacementException.class, () -> {
-            Deplacement dep_obstacle = new Deplacement(steve, "Gauche");
+            steve.allerGauche();
         });
         // Grotte en 6,8
         resp = new Coord(6, 8);
         steve.setCoordonnees_joueur(resp);
         assertThrows(DeplacementException.class, () -> {
-            Deplacement dep_obstacle = new Deplacement(steve, "Haut");
+            steve.allerHaut();
         });
     }
 }

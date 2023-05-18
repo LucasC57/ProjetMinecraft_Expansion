@@ -1,7 +1,6 @@
 package Tests;
 
 import Jeu.Coord;
-import Jeu.Minage;
 import Jeu.Monde;
 import org.junit.jupiter.api.*;
 import Exception.*;

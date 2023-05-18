@@ -79,7 +79,7 @@ public class TestsRamassage {
         // Ramassage :
         Coord case_ramassage = new Coord(2, 7);
         assertEquals(list_case_monde[7][2].getTaille(), 2);
-        new Ramassage(steve, case_ramassage);
+        steve.ramasserItems(case_ramassage);
         assertEquals(list_case_monde[7][2].getTaille(), 0);
         inv = steve.getInventaire();
         assertEquals(inv.getTaille(), 2);
@@ -105,7 +105,7 @@ public class TestsRamassage {
         list_case_monde[8][2].addItemsAuSol(planches);
         Coord co_case = new Coord(2, 8);
         assertThrows(CaseNonVoisineException.class, () -> {
-            Ramassage ramasser_Steve = new Ramassage(steve, co_case);
+            steve.ramasserItems(co_case);
         });
     }
 }
