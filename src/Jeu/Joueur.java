@@ -186,6 +186,12 @@ public class Joueur {
         }
         this.monde = monde;
     }
+    /**
+     * Fonction qui permet de savoir il y a combien d'occurence de l'objet obj dans l'inventaire de this.
+     * @param obj L'objet concernant la recherche d'occurence.
+     * @return Le nombre d'occurence de obj dans l'inventaire du joueur.
+     * @throws InventoryException
+     */
     public int getNbrObjetDansInventaire(Objets obj) throws InventoryException {
         // Récupérer le nombre d'occurence de l'objet obj dans l'inventaire du joueur
         int compteurOccu = 0;
@@ -196,9 +202,11 @@ public class Joueur {
         }
         return compteurOccu;
     }
-
-    // Ramassage :
-
+    /**
+     * Fonction booléenne qui permet de connaitre le voisinage de this en lien avec le ramassage.
+     * @param coordCaseRamassage La case qui est pointé par cette fonction et la vérification.
+     * @return True si la case concernée est dans le voisinage de this.
+     */
     public boolean blocDansVoisinageJoueurPourRamassage(Coord coordCaseRamassage) {
         boolean voisin = false;
         int x_case = coordCaseRamassage.getX();
@@ -212,6 +220,13 @@ public class Joueur {
         }
         return voisin;
     }
+
+    /**
+     * Fonction qui effectue l'action de ramassage dans une case précise.
+     * @param caseRammassage Les coordonnées de la case concernée par l'action du ramassage.
+     * @throws ListObjetsInexistantException
+     * @throws CaseNonVoisineException Si la case concernée n'est pas dans le voisinage de this.
+     */
     public void ramasserItems(Coord caseRammassage) throws ListObjetsInexistantException, CaseNonVoisineException {
         // On va récupérer le tab_monde
         Joueur joueur_concerne = this;
@@ -250,9 +265,11 @@ public class Joueur {
         }
 
     }
-
-    // Minage :
-
+    /**
+     * Fonction booléenne qui permet de connaitre le voisinage de this en lien avec le minage.
+     * @param coordCaseMinage La case qui est pointé par cette fonction et la vérification.
+     * @return True si la case concernée est dans le voisinage de this.
+     */
     public boolean blocDansVoisinageJoueurPourMinage(Coord coordCaseMinage) {
         boolean voisin = false;
         int x_case = coordCaseMinage.getX();
@@ -341,7 +358,12 @@ public class Joueur {
         }
         return voisin;
     }
-
+    /**
+     * Fonction qui effectue l'action de minage dans une case précise.
+     * @param expert L'expert qui permet de savoir si this est capable de miner le bloc en question.
+     * @param caseMinage Les coordonnées de la case concernée par l'action de minage.
+     * @throws Exception Si la COR est vide ou que la case en question ne se trouve pas dans le voisinage de this.
+     */
     public void minerBloc(Expert expert, Coord caseMinage) throws Exception {
         if (expert != null) {
             // Travail avec la COR :
@@ -372,9 +394,12 @@ public class Joueur {
             throw new CORVideException();
         }
     }
-
-    // Fabrication :
-
+    /**
+     * Fonction qui effectue l'action de fabrication d'un item en fonction d'une recette donnée.
+     * @param expertRecette L'expert qui permet de savoir si this est capable de fabriquer l'item en question.
+     * @param recette La recette qui permet de fabriquer un item voulu.
+     * @throws Exception Si la COR est vide ou si le joueur n'a pas les items dans son inventaire de la recette donnée.
+     */
     public void effectuerRecette(ExpertCraft expertRecette, ArrayList<Objets> recette) throws Exception {
         if (expertRecette != null) {
             ArrayList<Objets> inv_Joueur = this.getInventaire().getListItems();
@@ -415,44 +440,82 @@ public class Joueur {
             throw new CORVideException();
         }
     }
-
-    // Deplacement :
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers la droite.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerDroite() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX(), this.getCoordonnees_joueur().getY()+1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers la gauche.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerGauche() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX(), this.getCoordonnees_joueur().getY()-1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers le haut.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerHaut() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()-1, this.getCoordonnees_joueur().getY());
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers le bas.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerBas() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY());
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers le haut et la gauche.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerHautGauche() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()-1, this.getCoordonnees_joueur().getY()-1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers le haut et la droite.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerHautDroite() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()-1, this.getCoordonnees_joueur().getY()+1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers le bas et la gauche.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerBasGauche() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY()-1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-
+    /**
+     * Procédure qui effectue l'action de déplacement vers le bas et la droite.
+     * @throws CoordException
+     * @throws PlayerArgumentException
+     * @throws DeplacementException
+     */
     public void allerBasDroite() throws CoordException, PlayerArgumentException, DeplacementException {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY()+1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
