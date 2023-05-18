@@ -14,9 +14,6 @@ public class ExpertMain_Herbe extends Expert {
 
     @Override
     public Objets resout(Objets dansMain, Objets blocVise) throws Exception {
-        if (dansMain == null && blocVise == null) {
-            throw new ExpertManquantException();
-        }
         return new BlocTerre(); // On peut miner de l'herbe à main nue
     }
 

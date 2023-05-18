@@ -17,9 +17,6 @@ public class ExpertCraft_Bois_Planches extends ExpertCraft {
 
     @Override
     public ArrayList<Objets> resout(ArrayList<Objets> recette) throws Exception {
-        if (recette.size() != 9) {
-            throw new ExpertManquantException();
-        }
         ArrayList<Objets> resRecette = new ArrayList<Objets>();
         for (int i = 0; i < 4; i++) {
             Bloc mm = new BlocPlanche();

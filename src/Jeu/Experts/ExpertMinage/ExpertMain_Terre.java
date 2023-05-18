@@ -13,9 +13,6 @@ public class ExpertMain_Terre extends Expert {
 
     @Override
     public Objets resout(Objets dansMain, Objets blocVise) throws Exception {
-        if (dansMain == null && blocVise == null) {
-            throw new ExpertManquantException();
-        }
         return new BlocTerre(); // Il va récupérer de la terre
     }
 

@@ -13,9 +13,6 @@ public class ExpertMain_Lierre extends Expert {
 
     @Override
     public Objets resout(Objets dansMain, Objets blocVise) throws Exception {
-        if (dansMain == null && blocVise == null) {
-            throw new ExpertManquantException();
-        }
         return null; // On peut miner des feuilles à main nue mais cela nous donne rien logiquement
     }
 

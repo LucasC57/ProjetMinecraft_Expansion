@@ -13,9 +13,6 @@ public class ExpertMain_Pierre extends Expert {
 
     @Override
     public Objets resout(Objets dansMain, Objets blocVise) throws Exception {
-        if (dansMain == null && blocVise == null) {
-            throw new ExpertManquantException();
-        }
         return null; // Il ne va pas récupérer de la pierre
     }
 

@@ -13,9 +13,6 @@ public class ExpertPiochePierre_Terre extends Expert {
 
     @Override
     public Objets resout(Objets dansMain, Objets blocVise) throws Exception {
-        if (dansMain == null && blocVise == null) {
-            throw new ExpertManquantException();
-        }
         return new BlocTerre(); // On peut même si ce n'est pas très optimal
     }
 

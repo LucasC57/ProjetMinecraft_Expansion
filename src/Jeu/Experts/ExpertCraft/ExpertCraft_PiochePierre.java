@@ -17,9 +17,6 @@ public class ExpertCraft_PiochePierre extends ExpertCraft {
 
     @Override
     public ArrayList<Objets> resout(ArrayList<Objets> recette) throws Exception {
-        if (recette.size() != 9) {
-            throw new ExpertManquantException();
-        }
         ArrayList<Objets> resRecette = new ArrayList<Objets>();
         resRecette.add(new PiochePierre());
         return resRecette;

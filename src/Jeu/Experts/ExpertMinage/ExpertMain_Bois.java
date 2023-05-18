@@ -13,9 +13,6 @@ public class ExpertMain_Bois extends Expert {
 
     @Override
     public Objets resout(Objets dansMain, Objets blocVise) throws Exception {
-        if (dansMain == null && blocVise == null) {
-            throw new ExpertManquantException();
-        }
         return new BlocBois(); // On peut miner du bois à la main
     }
 

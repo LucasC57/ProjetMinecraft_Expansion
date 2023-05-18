@@ -16,9 +16,6 @@ public class ExpertCraft_Planches_Baton extends ExpertCraft {
 
     @Override
     public ArrayList<Objets> resout(ArrayList<Objets> recette) throws Exception {
-        if (recette.size() != 9) {
-            throw new ExpertManquantException();
-        }
         // On va créer l'ArrayList avec le résultat
         ArrayList<Objets> resRecette = new ArrayList<Objets>();
         for (int i = 0; i < 4; i++) {

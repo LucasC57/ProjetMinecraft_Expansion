@@ -12,9 +12,6 @@ public class ExpertMain_Air extends Expert {
 
     @Override
     public Objets resout(Objets dansMain, Objets blocVise) throws Exception {
-        if (dansMain == null && blocVise == null) {
-            throw new ExpertManquantException();
-        }
         return null; // On ne peut pas miner de l'air
     }
 
