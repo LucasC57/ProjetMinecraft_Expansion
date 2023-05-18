@@ -30,19 +30,19 @@ public class TestsRamassage {
         ArrayList<Objets> itemSol = new ArrayList<Objets>();
         // Case 2,7
         Case[][] list_case_monde = monde_create.getTab_monde();
-        list_case_monde[7][2].setItems_au_sol(itemSol); // Y, X
-        assertTrue(list_case_monde[7][2].getItems_au_sol().isEmpty());
+        Case case_concerne = list_case_monde[7][2];
+        assertTrue(case_concerne.getItems_au_sol().isEmpty());
         // Création de la pioche et la placer dans 2,7
         Item pioche = new PiocheBois();
-        list_case_monde[7][2].addItemsAuSol(pioche);
-        assertEquals(list_case_monde[7][2].getTaille(), 1);
-        assertEquals(list_case_monde[7][2].get(0).getClass(), PiocheBois.class);
+        case_concerne.addItemsAuSol(pioche);
+        assertEquals(case_concerne.getTaille(), 1);
+        assertEquals(case_concerne.get(0).getClass(), PiocheBois.class);
         // Création du bloc de pierre et ajouter dans 2,7
         Bloc pierre = new BlocPierre();
-        list_case_monde[7][2].addItemsAuSol(pierre);
-        assertEquals(list_case_monde[7][2].getTaille(), 2);
-        assertEquals(list_case_monde[7][2].get(0).getClass(), PiocheBois.class);
-        assertEquals(list_case_monde[7][2].get(1).getClass(), BlocPierre.class);
+        case_concerne.addItemsAuSol(pierre);
+        assertEquals(case_concerne.getTaille(), 2);
+        assertEquals(case_concerne.get(0).getClass(), PiocheBois.class);
+        assertEquals(case_concerne.get(1).getClass(), BlocPierre.class);
         // Planche
         Bloc planche = new BlocBois();
         assertEquals(list_case_monde[7][1].getTaille(), 0);
@@ -65,18 +65,17 @@ public class TestsRamassage {
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
         assertEquals(steve.getCoordonnees_joueur(), coo_valide);
         // Mettre les objets dans la case :
-        ArrayList<Objets> list_items_inv = new ArrayList<Objets>();
         Case[][] list_case_monde = monde_create.getTab_monde();
-        list_case_monde[7][2].setItems_au_sol(list_items_inv);
+        Case case_concerne = list_case_monde[7][2];
         Item pioche = new PiocheBois();
-        list_case_monde[7][2].addItemsAuSol(pioche);
+        case_concerne.addItemsAuSol(pioche);
         Bloc pierre = new BlocPierre();
-        list_case_monde[7][2].addItemsAuSol(pierre);
+        case_concerne.addItemsAuSol(pierre);
         // Ramassage :
         Coord case_ramassage = new Coord(2, 7);
-        assertEquals(list_case_monde[7][2].getTaille(), 2);
+        assertEquals(case_concerne.getTaille(), 2);
         steve.ramasserItems(case_ramassage);
-        assertEquals(list_case_monde[7][2].getTaille(), 0);
+        assertEquals(case_concerne.getTaille(), 0);
         assertEquals(steve.getInventaire().getTaille(), 2);
         assertEquals(steve.getNbrObjetDansInventaire(new PiocheBois()), 1);
         assertEquals(steve.getNbrObjetDansInventaire(new BlocPierre()), 1);
