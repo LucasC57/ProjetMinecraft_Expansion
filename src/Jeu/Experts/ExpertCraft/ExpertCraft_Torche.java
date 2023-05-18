@@ -4,6 +4,7 @@ import Jeu.Bloc.BlocAir;
 import Jeu.Bloc.BlocPlanche;
 import Jeu.Item.Baton;
 import Jeu.Item.Charbon;
+import Jeu.Item.Torche;
 import Jeu.Objets;
 
 import java.util.ArrayList;
@@ -15,7 +16,12 @@ public class ExpertCraft_Torche extends ExpertCraft {
 
     @Override
     public ArrayList<Objets> resout(ArrayList<Objets> recette) throws Exception {
-        return null;
+        // On va créer l'ArrayList avec le résultat
+        ArrayList<Objets> resRecette = new ArrayList<Objets>();
+        for (int i = 0; i < 4; i++) {
+            resRecette.add(i, new Torche());
+        }
+        return resRecette;
     }
 
     @Override
