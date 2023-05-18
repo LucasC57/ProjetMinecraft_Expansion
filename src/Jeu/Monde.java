@@ -98,6 +98,9 @@ public class Monde {
                         case "L" -> {
                             bloc_create = new BlocLierre();
                         }
+                        case "C" -> {
+                            bloc_create = new BlocMineraiCharbon();
+                        }
                         default -> {
                             throw new BlocInconnuException();
                         }
