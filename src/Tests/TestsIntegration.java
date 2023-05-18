@@ -32,8 +32,6 @@ public class TestsIntegration {
         assertEquals(steve.getCoordonnees_joueur(), monde.getPoint_respawn());
 
         // Possède rien :
-        Item main = new MainVide();
-        steve.setMain(main);
         assertEquals(steve.getMain().getClass(), MainVide.class);
         assertEquals(steve.getInventaire().getTaille(), 0);
 

@@ -21,8 +21,6 @@ public class TestsFabrication {
         Monde monde_create = new Monde(monde_test);
         // Création de Steve
         Joueur steve = new Joueur(monde_create);
-        Item mainVidePourTest = new MainVide();
-        steve.setMain(mainVidePourTest);
         Coord co_valide = new Coord(2, 6);
         assertEquals(co_valide, steve.getCoordonnees_joueur());
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
@@ -55,8 +53,6 @@ public class TestsFabrication {
         Monde monde_create = new Monde(monde_test);
         // Création de Steve
         Joueur steve = new Joueur(monde_create);
-        Item mainVidePourTest = new MainVide();
-        steve.setMain(mainVidePourTest);
         Coord co_valide = new Coord(2, 6);
         assertEquals(co_valide, steve.getCoordonnees_joueur());
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
@@ -105,8 +101,6 @@ public class TestsFabrication {
         Monde monde_create = new Monde(monde_test);
         // Création de Steve
         Joueur steve = new Joueur(monde_create);
-        Item mainVidePourTest = new MainVide();
-        steve.setMain(mainVidePourTest);
         Coord co_valide = new Coord(2, 6);
         assertEquals(co_valide, steve.getCoordonnees_joueur());
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
@@ -156,8 +150,6 @@ public class TestsFabrication {
         Monde monde_create = new Monde(monde_test);
         // Création de Steve
         Joueur steve = new Joueur(monde_create);
-        Item mainVidePourTest = new MainVide();
-        steve.setMain(mainVidePourTest);
         Coord co_valide = new Coord(2, 6);
         assertEquals(co_valide, steve.getCoordonnees_joueur());
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
@@ -211,8 +203,6 @@ public class TestsFabrication {
         Monde monde_create = new Monde(monde_test);
         // Création de Steve
         Joueur steve = new Joueur(monde_create);
-        Item mainVidePourTest = new MainVide();
-        steve.setMain(mainVidePourTest);
         Coord co_valide = new Coord(2, 6);
         assertEquals(co_valide, steve.getCoordonnees_joueur());
         assertEquals(steve.getCoordonnees_joueur(), monde_create.getPoint_respawn());
