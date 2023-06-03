@@ -14,6 +14,8 @@ import java.util.Objects;
  * La classe Joueur répresente tout simplement le ou les joueurs introduit dans un monde spécifique
  */
 public class Joueur {
+    private final static String EN_VIE = "Vivant";
+    private final static String MORT = "Mort";
     /**
      * Nom du joueur.
      */
@@ -35,6 +37,7 @@ public class Joueur {
      */
     private Monde monde;
     private int Vie = 20;
+    private String etat_mortalite = EN_VIE;
     /**
      * Constructeur de la classe Joueur
      * @param nom Nom du joueur créé.
@@ -190,13 +193,18 @@ public class Joueur {
     public int getVie() {
         return Vie;
     }
-    public void setVie(int vie) throws VieJoueurException {
+    public void setVie(int vie) throws VieJoueurException, EtatVitalException {
         if (vie < 0 || vie > 20) {
             throw new VieJoueurException();
         }
+        if (vie == 0) {
+            setEtat_mortalite(MORT);
+        } else {
+            setEtat_mortalite(EN_VIE);
+        }
         Vie = vie;
     }
-    public void enleverPointDeVie(int vieAEnlever) throws MontantVieException, VieJoueurException {
+    public void enleverPointDeVie(int vieAEnlever) throws MontantVieException, VieJoueurException, EtatVitalException {
         if (vieAEnlever < 0 || vieAEnlever > 20) {
             throw new MontantVieException();
         }
@@ -206,7 +214,7 @@ public class Joueur {
         // Sinon
         this.setVie(this.getVie() - vieAEnlever);
     }
-    public void ajouterPointDeVie(int vieAAjouter) throws MontantVieException, VieJoueurException {
+    public void ajouterPointDeVie(int vieAAjouter) throws MontantVieException, VieJoueurException, EtatVitalException {
         if (vieAAjouter < 0 || vieAAjouter > 20) {
             throw new MontantVieException();
         }
@@ -215,6 +223,21 @@ public class Joueur {
         }
         // Sinon
         this.setVie(this.getVie() + vieAAjouter);
+    }
+    public void tuerJoueur() throws VieJoueurException, EtatVitalException {
+        setVie(0);
+    }
+    public void ressuciterJoueur() throws VieJoueurException, EtatVitalException {
+        setVie(20);
+    }
+    public String getEtat_mortalite() {
+        return etat_mortalite;
+    }
+    public void setEtat_mortalite(String etat_mortalite) throws EtatVitalException {
+        if (!(etat_mortalite.equals(EN_VIE) || etat_mortalite.equals(MORT))) {
+            throw new EtatVitalException();
+        }
+        this.etat_mortalite = etat_mortalite;
     }
     /**
      * Fonction qui permet de savoir il y a combien d'occurence de l'objet obj dans l'inventaire de this.

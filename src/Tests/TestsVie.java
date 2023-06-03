@@ -24,6 +24,21 @@ public class TestsVie {
         assertThrows(MontantVieException.class, () -> {
             steve.enleverPointDeVie(18);
         });
+        steve.tuerJoueur();
+        assertEquals(steve.getVie(), 0);
+        steve.ressuciterJoueur();
+        assertEquals(steve.getVie(), 20);
+
+        // Tests sur l'état vital du joueur :
+        assertEquals(steve.getEtat_mortalite(), "Vivant");
+        steve.tuerJoueur();
+        assertEquals(steve.getEtat_mortalite(), "Mort");
+        steve.ressuciterJoueur();
+        assertEquals(steve.getEtat_mortalite(), "Vivant");
+        steve.enleverPointDeVie(5);
+        assertEquals(steve.getEtat_mortalite(), "Vivant");
+        steve.enleverPointDeVie(15);
+        assertEquals(steve.getEtat_mortalite(), "Mort");
     }
 
 }
