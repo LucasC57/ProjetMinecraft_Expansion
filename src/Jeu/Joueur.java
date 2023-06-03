@@ -34,6 +34,7 @@ public class Joueur {
      * Monde où le joueur est créé.
      */
     private Monde monde;
+    private int Vie = 20;
     /**
      * Constructeur de la classe Joueur
      * @param nom Nom du joueur créé.
@@ -185,6 +186,35 @@ public class Joueur {
             throw new PlayerArgumentException();
         }
         this.monde = monde;
+    }
+    public int getVie() {
+        return Vie;
+    }
+    public void setVie(int vie) throws VieJoueurException {
+        if (vie < 0 || vie > 20) {
+            throw new VieJoueurException();
+        }
+        Vie = vie;
+    }
+    public void enleverPointDeVie(int vieAEnlever) throws MontantVieException, VieJoueurException {
+        if (vieAEnlever < 0 || vieAEnlever > 20) {
+            throw new MontantVieException();
+        }
+        if (this.getVie() < vieAEnlever) {
+            throw new MontantVieException();
+        }
+        // Sinon
+        this.setVie(this.getVie() - vieAEnlever);
+    }
+    public void ajouterPointDeVie(int vieAAjouter) throws MontantVieException, VieJoueurException {
+        if (vieAAjouter < 0 || vieAAjouter > 20) {
+            throw new MontantVieException();
+        }
+        if ((this.getVie() + vieAAjouter) > 20) {
+            throw new MontantVieException();
+        }
+        // Sinon
+        this.setVie(this.getVie() + vieAAjouter);
     }
     /**
      * Fonction qui permet de savoir il y a combien d'occurence de l'objet obj dans l'inventaire de this.
