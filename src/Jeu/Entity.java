@@ -10,12 +10,14 @@ public class Entity {
     private Joueur cible;
     private Monde mondeApparition;
     private Coord coordEntity;
+    private int vie = 20;
     public Entity(String type, Item main, Joueur cible, Monde quelMonde, Coord cooEntity) throws Exception {
         setMondeApparition(quelMonde);
         setCoordEntity(cooEntity);
         setType(type);
         setMain(main);
         setCible(cible);
+        setVie(vie);
     }
     public String getType() {
         return type;
@@ -32,6 +34,15 @@ public class Entity {
             throw new EntityInconnuException();
         }
         this.type = type;
+    }
+    public int getVie() {
+        return vie;
+    }
+    public void setVie(int vie) throws MontantVieException {
+        if (vie < 0 || vie > 20) {
+            throw new MontantVieException();
+        }
+        this.vie = vie;
     }
     public Item getMain() {
         return main;

@@ -573,6 +573,19 @@ public class Joueur {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY()+1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
+    public void taperEntity(Entity cible) throws CibleHorsPorteeException, CibleHorsMondeException {
+        if (cible == null) {
+            throw new IllegalArgumentException();
+        }
+        if (!cible.getMondeApparition().equals(this.getMonde())) {
+            throw new CibleHorsMondeException();
+        }
+        // Autant utiliser la fonction de voisinage de Entity
+        if (!cible.voisinageAvecJoueur(this.getCoordonnees_joueur())) {
+            throw new CibleHorsPorteeException();
+        }
+        // COR Objet dans la main = Différence des dégats infligés : à faire
+    }
 
     @Override
     public boolean equals(Object o) {
