@@ -1,6 +1,8 @@
 package Jeu;
 import Exception.*;
 import Jeu.Bloc.*;
+import Jeu.Experts.ExpertTypeEntity.ExpertTypeEntity;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -32,6 +34,7 @@ public class Monde {
      * Les coordonnées du point de respawn du monde.
      */
     private Coord point_respawn;
+    private ExpertTypeEntity expertTypeEntity = null; // Au cas où ce champs soit inutil
     /**
      * Constructeur de la classe Monde.
      * @param mondeInco Le fichier qui sera lié au monde.
@@ -39,6 +42,12 @@ public class Monde {
      */
     public Monde(String mondeInco) throws Exception {
         validerMonde(mondeInco);
+        //setNom_fichier(nom_fichier);
+    }
+
+    public Monde(String mondeInco, ExpertTypeEntity expertTypeEntityV) throws Exception {
+        validerMonde(mondeInco);
+        expertTypeEntity = expertTypeEntityV;
         //setNom_fichier(nom_fichier);
     }
     /**
@@ -130,6 +139,12 @@ public class Monde {
      */
     public void setTab_monde(Case[][] tab_monde) {
         this.tab_monde = tab_monde;
+    }
+    public ExpertTypeEntity getExpertTypeEntity() {
+        return expertTypeEntity;
+    }
+    public void setExpertTypeEntity(ExpertTypeEntity expertTypeEntity) {
+        this.expertTypeEntity = expertTypeEntity;
     }
     /**
      * Procédure qui effectue la création d'un monde.
