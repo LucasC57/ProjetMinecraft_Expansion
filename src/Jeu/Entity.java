@@ -3,11 +3,12 @@ package Jeu;
 import Jeu.Experts.ExpertDegats.ExpertDegats;
 import Jeu.Item.Item;
 import Exception.*;
+import Jeu.Item.MainVide;
 
 public class Entity {
     // Champs :
     private String type;
-    private Item main;
+    private Item main = new MainVide();
     private Joueur cible;
     private Monde mondeApparition;
     private Coord coordEntity;
@@ -184,6 +185,9 @@ public class Entity {
         this.setVie(this.getVie() - vieAEnlever);
     }
     public void taperJoueur(Joueur cible, ExpertDegats expertDegats) throws Exception {
+        if (expertDegats == null) {
+            throw new CORVideException();
+        }
         if (cible.equals(this.cible)) {
             int degatsInfliges = expertDegats.expertiserDegats(this.main);
             cible.enleverPointDeVie(degatsInfliges);

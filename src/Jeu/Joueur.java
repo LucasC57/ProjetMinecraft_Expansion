@@ -575,6 +575,9 @@ public class Joueur {
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
     public void taperEntity(Entity cible, ExpertDegats expertDegats) throws Exception {
+        if (expertDegats == null) {
+            throw new CORVideException();
+        }
         if (cible == null) {
             throw new IllegalArgumentException();
         }
