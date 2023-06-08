@@ -4,9 +4,11 @@ import Jeu.Bloc.BlocAir;
 import Jeu.Experts.ExpertCraft.ExpertCraft;
 import Jeu.Experts.ExpertDegats.ExpertDegats;
 import Jeu.Experts.ExpertMinage.Expert;
+import Jeu.Experts.ExpertNourritures.ExpertNourritures;
 import Jeu.Item.Item;
 import Exception.*;
 import Jeu.Item.MainVide;
+import Jeu.Item.Nourriture.Nourriture;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -39,6 +41,7 @@ public class Joueur {
     private Monde monde;
     private int Vie = 20;
     private String etat_mortalite = EN_VIE;
+    private int faim = 100;
     /**
      * Constructeur de la classe Joueur
      * @param nom Nom du joueur créé.
@@ -592,7 +595,30 @@ public class Joueur {
         cible.enleverPointDeVie(degatsInfliges);
         cible.setCible(this);
     }
-
+    public int getFaim() {
+        return faim;
+    }
+    public void setFaim(int faim) throws MontantFaimException {
+        if (faim < 0 || faim > 100) {
+            throw new MontantFaimException();
+        }
+        this.faim = faim;
+    }
+    public void consommerItemDansMain(ExpertNourritures expertNourritures) throws Exception {
+        if (expertNourritures == null) {
+            throw new CORVideException();
+        }
+        if (!(this.main instanceof Nourriture)) {
+            throw new ItemNonConsommable();
+        }
+        int montantFaim = expertNourritures.expertiserNourriture((Nourriture) this.main);
+        if (this.faim + montantFaim > 100) {
+            setFaim(100);
+        } else {
+            setFaim(this.faim + montantFaim);
+        }
+        setMain(new MainVide());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
