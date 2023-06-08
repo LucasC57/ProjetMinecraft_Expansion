@@ -2,6 +2,7 @@ package Jeu;
 
 import Jeu.Bloc.BlocAir;
 import Jeu.Experts.ExpertCraft.ExpertCraft;
+import Jeu.Experts.ExpertDegats.ExpertDegats;
 import Jeu.Experts.ExpertMinage.Expert;
 import Jeu.Item.Item;
 import Exception.*;
@@ -573,7 +574,7 @@ public class Joueur {
         Coord nouvelleCoordonnees = new Coord(this.getCoordonnees_joueur().getX()+1, this.getCoordonnees_joueur().getY()+1);
         this.setCoordonnees_joueur(nouvelleCoordonnees);
     }
-    public void taperEntity(Entity cible) throws CibleHorsPorteeException, CibleHorsMondeException {
+    public void taperEntity(Entity cible, ExpertDegats expertDegats) throws Exception {
         if (cible == null) {
             throw new IllegalArgumentException();
         }
@@ -584,7 +585,9 @@ public class Joueur {
         if (!cible.voisinageAvecJoueur(this.getCoordonnees_joueur())) {
             throw new CibleHorsPorteeException();
         }
-        // COR Objet dans la main = Différence des dégats infligés : à faire
+        int degatsInfliges = expertDegats.expertiserDegats(this.main);
+        cible.enleverPointDeVie(degatsInfliges);
+        cible.setCible(this);
     }
 
     @Override

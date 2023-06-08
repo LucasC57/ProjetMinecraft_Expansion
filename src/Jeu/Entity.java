@@ -1,5 +1,6 @@
 package Jeu;
 
+import Jeu.Experts.ExpertDegats.ExpertDegats;
 import Jeu.Item.Item;
 import Exception.*;
 
@@ -161,6 +162,34 @@ public class Entity {
         }
         // Système de voisinage : à faire
         this.cible = cible;
+    }
+    public void ajouterPointDeVie(int vieAAjouter) throws MontantVieException {
+        if (vieAAjouter < 0 || vieAAjouter > 20) {
+            throw new MontantVieException();
+        }
+        if ((this.getVie() + vieAAjouter) > 20) {
+            throw new MontantVieException();
+        }
+        // Sinon
+        this.setVie(this.getVie() + vieAAjouter);
+    }
+    public void enleverPointDeVie(int vieAEnlever) throws MontantVieException {
+        if (vieAEnlever < 0 || vieAEnlever > 20) {
+            throw new MontantVieException();
+        }
+        if (this.getVie() < vieAEnlever) {
+            throw new MontantVieException();
+        }
+        // Sinon
+        this.setVie(this.getVie() - vieAEnlever);
+    }
+    public void taperJoueur(Joueur cible, ExpertDegats expertDegats) throws Exception {
+        if (cible.equals(this.cible)) {
+            int degatsInfliges = expertDegats.expertiserDegats(this.main);
+            cible.enleverPointDeVie(degatsInfliges);
+        } else {
+            throw new CibleHorsPorteeException();
+        }
     }
     public Monde getMondeApparition() {
         return mondeApparition;
