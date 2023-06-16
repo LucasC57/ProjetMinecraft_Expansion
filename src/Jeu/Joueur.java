@@ -5,10 +5,12 @@ import Jeu.Experts.ExpertCraft.ExpertCraft;
 import Jeu.Experts.ExpertDegats.ExpertDegats;
 import Jeu.Experts.ExpertMinage.Expert;
 import Jeu.Experts.ExpertNourritures.ExpertNourritures;
+import Jeu.Experts.ExpertPotions.ExpertPotions;
 import Jeu.Item.Item;
 import Exception.*;
 import Jeu.Item.MainVide;
 import Jeu.Item.Nourriture.Nourriture;
+import Jeu.Item.Nourriture.Potion;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -616,6 +618,19 @@ public class Joueur {
             setFaim(100);
         } else {
             setFaim(this.faim + montantFaim);
+        }
+        setMain(new MainVide());
+    }
+    public void consommerPotionDansMain(ExpertPotions expertPotions) throws Exception {
+        if (expertPotions == null) {
+            throw new CORVideException();
+        }
+        if (!(this.main instanceof Potion)) {
+            throw new ItemNonConsommable();
+        }
+        ArrayList<Object> aDonner = expertPotions.expertiserPotions((Potion) this.main);
+        if (aDonner.size() == 1 && aDonner.get(0).equals(20)) {
+            setVie(20);
         }
         setMain(new MainVide());
     }
